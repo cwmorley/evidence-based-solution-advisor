@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/evidence-based-solution-advisor/rule.schema.json",
+  "title": "Constraint Rule",
+  "type": "object",
+  "required": ["id", "operator"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "operator": {
+      "enum": [
+        "product_gte_requirement",
+        "product_lte_requirement",
+        "product_in_requirement_list",
+        "product_contains_all_requirement",
+        "product_equals_requirement",
+        "support_at_least",
+        "power_within_circuit"
+      ]
+    },
+    "requirement_path": {"type": "string"},
+    "product_path": {"type": "string"},
+    "on_missing_requirement": {"enum": ["skipped", "unknown", "failed"]},
+    "condition": {"type": "object"}
+  },
+  "additionalProperties": true
+}

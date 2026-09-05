@@ -1,0 +1,42 @@
+{
+  "intake_id": "demo-local-ai-001",
+  "vertical": "workstation",
+  "customer_context": {
+    "organization_type": "Applied AI development team",
+    "seats": 2,
+    "deployment_location": "Secure lab"
+  },
+  "workload": {
+    "primary_job": "Local inference and evaluation of large models with restricted data",
+    "applications": ["ExampleAI Runtime"],
+    "quantified_bottleneck": "The target model does not fit in the current GPU memory and CPU fallback takes more than 14 minutes per response",
+    "business_impact": "Protected datasets cannot be sent to a public cloud service, blocking the evaluation program"
+  },
+  "requirements": {
+    "min_cpu_cores": 32,
+    "min_gpu_vram_gb": 96,
+    "min_memory_gb": 256,
+    "min_memory_speed_mt_s": 4800,
+    "min_storage_tb": 8,
+    "allowed_primary_storage_types": ["NVMe SSD"],
+    "allowed_form_factors": ["desktop", "rackmount"],
+    "required_operating_systems": ["Linux"],
+    "required_certifications": ["ExampleAI Runtime"],
+    "support_level_min": "next_business_day"
+  },
+  "environment": {
+    "circuit_amps": 20,
+    "voltage": 240,
+    "noise_sensitive": false
+  },
+  "commercial": {
+    "budget_usd_max": 20000,
+    "lead_time_weeks_max": 8
+  },
+  "evaluation": {"wants_workload_test": true},
+  "services": {
+    "migration_required": false,
+    "application_optimization_required": true
+  },
+  "decision": {"next_step_date": "2026-09-22"}
+}

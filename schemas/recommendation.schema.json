@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/evidence-based-solution-advisor/recommendation.schema.json",
+  "title": "Solution Recommendation",
+  "type": "object",
+  "required": [
+    "recommendation_id",
+    "generated_at",
+    "status",
+    "vertical",
+    "synthetic_data_notice",
+    "decision_authority",
+    "next_questions",
+    "alternatives",
+    "recommended_services",
+    "rejected_products"
+  ],
+  "properties": {
+    "recommendation_id": {"type": "string"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["recommendation_ready", "provisional_recommendation", "no_viable_configuration"]},
+    "vertical": {"type": "string"},
+    "synthetic_data_notice": {"type": "string"},
+    "decision_authority": {"const": "human_review_required"},
+    "recommendation": {"type": ["object", "null"]},
+    "alternatives": {"type": "array"},
+    "recommended_services": {"type": "array"},
+    "competitive_context": {"type": "array"},
+    "conversation_guide": {"type": "array"},
+    "next_questions": {"type": "array"},
+    "unresolved_constraints": {"type": "array"},
+    "rejected_products": {"type": "array"}
+  },
+  "additionalProperties": true
+}

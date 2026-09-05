@@ -1,0 +1,42 @@
+{
+  "intake_id": "demo-aec-001",
+  "vertical": "workstation",
+  "customer_context": {
+    "organization_type": "Architecture and engineering studio",
+    "seats": 6,
+    "deployment_location": "Office"
+  },
+  "workload": {
+    "primary_job": "Large building models with interactive visualization and final rendering",
+    "applications": ["ExampleCAD Pro", "ExampleRender"],
+    "quantified_bottleneck": "Complex model updates stall for 18-25 minutes and final renders run for four hours",
+    "business_impact": "The studio declined two deadline-sensitive visualization projects last quarter"
+  },
+  "requirements": {
+    "min_cpu_cores": 20,
+    "min_gpu_vram_gb": 24,
+    "min_memory_gb": 128,
+    "min_memory_speed_mt_s": 5200,
+    "min_storage_tb": 4,
+    "allowed_primary_storage_types": ["NVMe SSD"],
+    "allowed_form_factors": ["desktop"],
+    "required_operating_systems": ["Windows 11 Pro"],
+    "required_certifications": ["ExampleCAD Pro"],
+    "support_level_min": "next_business_day"
+  },
+  "environment": {
+    "circuit_amps": 20,
+    "voltage": 120,
+    "noise_sensitive": true
+  },
+  "commercial": {
+    "budget_usd_max": 10000,
+    "lead_time_weeks_max": 5
+  },
+  "evaluation": {"wants_workload_test": true},
+  "services": {
+    "migration_required": true,
+    "application_optimization_required": true
+  },
+  "decision": {"next_step_date": "2026-09-18"}
+}

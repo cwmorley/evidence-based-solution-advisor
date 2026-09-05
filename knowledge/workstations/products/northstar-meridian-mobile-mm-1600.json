@@ -1,0 +1,31 @@
+{
+  "product_id": "northstar-meridian-mobile-mm-1600",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Northstar Labs", "model": "Meridian Mobile", "model_number": "MM-1600"},
+  "description": "Synthetic portable workstation for color-sensitive creative and field production work.",
+  "commercial": {
+    "sample_price_usd": 5200,
+    "sample_lead_time_weeks": 3,
+    "warranty_years": 3,
+    "support_level": "next_business_day"
+  },
+  "specifications": {
+    "form_factor": "laptop",
+    "cpu": {"make": "Example Silicon", "family": "Vector Mobile", "model": "VM16", "cores": 16, "threads": 32},
+    "gpu": {"make": "Example Graphics", "model": "Studio Mobile 1600", "vram_gb": 16, "memory_type": "GDDR7"},
+    "memory": {"capacity_gb": 64, "type": "DDR5", "speed_mt_s": 5600, "ecc": false},
+    "storage": {"total_capacity_tb": 2, "primary": {"capacity_tb": 2, "type": "NVMe SSD", "interface": "PCIe 4.0"}},
+    "power": {"max_draw_w": 280, "required_voltage": [120, 240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleEdit Studio"],
+    "display": {"size_inches": 16, "panel_type": "OLED", "resolution_width": 3840, "resolution_height": 2400, "refresh_hz": 120, "brightness_nits": 500, "color_gamut_dci_p3_percent": 100}
+  },
+  "evidence": [
+    {"source_id": "synthetic-catalog-v1", "source_type": "synthetic_demo", "observed_at": "2026-09-01", "confidence": 0.93, "note": "Fictional demonstration record; not a purchasable product."},
+    {"source_id": "synthetic-display-test-v1", "source_type": "synthetic_lab_measurement", "observed_at": "2026-09-01", "confidence": 0.88, "note": "Fictional display evidence for demonstration."}
+  ]
+}

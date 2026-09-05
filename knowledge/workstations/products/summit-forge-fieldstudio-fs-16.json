@@ -1,0 +1,30 @@
+{
+  "product_id": "summit-forge-fieldstudio-fs-16",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Summit Forge", "model": "FieldStudio", "model_number": "FS-16"},
+  "description": "Synthetic competing mobile workstation with fast sample delivery and lower evidence confidence.",
+  "commercial": {
+    "sample_price_usd": 5600,
+    "sample_lead_time_weeks": 2,
+    "warranty_years": 3,
+    "support_level": "next_business_day"
+  },
+  "specifications": {
+    "form_factor": "laptop",
+    "cpu": {"make": "Example Silicon", "family": "Vector Mobile", "model": "VM18", "cores": 18, "threads": 36},
+    "gpu": {"make": "Example Graphics", "model": "Studio Mobile 2000", "vram_gb": 20, "memory_type": "GDDR7"},
+    "memory": {"capacity_gb": 64, "type": "DDR5", "speed_mt_s": 6400, "ecc": false},
+    "storage": {"total_capacity_tb": 2, "primary": {"capacity_tb": 2, "type": "NVMe SSD", "interface": "PCIe 5.0"}},
+    "power": {"max_draw_w": 260, "required_voltage": [120, 240]},
+    "operating_systems": ["Windows 11 Pro"],
+    "certifications": ["ExampleEdit Studio"],
+    "display": {"size_inches": 16, "panel_type": "OLED", "resolution_width": 3840, "resolution_height": 2400, "refresh_hz": 120, "brightness_nits": 500, "color_gamut_dci_p3_percent": 98}
+  },
+  "evidence": [
+    {"source_id": "synthetic-competitor-catalog-v1", "source_type": "synthetic_public_catalog", "observed_at": "2026-09-01", "confidence": 0.80, "note": "Fictional market observation; not a purchasable product."}
+  ]
+}

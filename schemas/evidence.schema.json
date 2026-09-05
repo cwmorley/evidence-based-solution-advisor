@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/evidence-based-solution-advisor/evidence.schema.json",
+  "title": "Evidence Record",
+  "type": "object",
+  "required": ["source_id", "source_type", "observed_at", "confidence"],
+  "properties": {
+    "source_id": {"type": "string", "minLength": 1},
+    "source_type": {"type": "string", "minLength": 1},
+    "source_url": {"type": "string", "format": "uri"},
+    "observed_at": {"type": "string", "format": "date"},
+    "effective_from": {"type": "string", "format": "date"},
+    "effective_to": {"type": ["string", "null"], "format": "date"},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "note": {"type": "string"}
+  },
+  "additionalProperties": true
+}

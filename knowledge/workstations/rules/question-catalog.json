@@ -1,0 +1,62 @@
+[
+  {
+    "path": "workload.primary_job",
+    "priority": 1,
+    "question": "What are you actually trying to get done, and where does the current system get in the way?",
+    "why_it_matters": "The workload—not a requested part number—should define the solution."
+  },
+  {
+    "path": "workload.quantified_bottleneck",
+    "priority": 2,
+    "question": "How long does the constrained step take now, and how often does it happen?",
+    "why_it_matters": "A measured bottleneck can be tested; a vague desire for speed cannot."
+  },
+  {
+    "path": "workload.business_impact",
+    "priority": 3,
+    "question": "Is this merely annoying, or is it costing time, revenue, capacity, or delivery confidence?",
+    "why_it_matters": "The answer separates a preference from a business case."
+  },
+  {
+    "path": "environment.circuit_amps",
+    "priority": 4,
+    "question": "What electrical circuit will the system use?",
+    "why_it_matters": "A technically correct high-power configuration can still fail at deployment."
+  },
+  {
+    "path": "requirements.min_gpu_vram_gb",
+    "priority": 5,
+    "question": "What is the largest GPU-resident model, scene, or dataset the system must handle?",
+    "why_it_matters": "GPU memory can be a hard capacity limit, not a performance preference."
+  },
+  {
+    "path": "requirements.min_memory_gb",
+    "priority": 6,
+    "question": "What peak system-memory use have you observed with the real workload?",
+    "why_it_matters": "Memory capacity should be based on concurrency and dataset evidence."
+  },
+  {
+    "path": "evaluation.wants_workload_test",
+    "priority": 7,
+    "question": "Would you want to run your own workload before committing?",
+    "why_it_matters": "Evaluation demand is both risk information and product-investment evidence."
+  },
+  {
+    "path": "commercial.lead_time_weeks_max",
+    "priority": 8,
+    "question": "How many weeks can delivery take before the solution stops being useful?",
+    "why_it_matters": "An ideal configuration delivered too late is not a viable recommendation."
+  },
+  {
+    "path": "commercial.budget_usd_max",
+    "priority": 9,
+    "question": "Is there an approved ceiling, or are we still exploring the economics?",
+    "why_it_matters": "Budget status determines whether this is a recommendation, evaluation, or research conversation."
+  },
+  {
+    "path": "decision.next_step_date",
+    "priority": 10,
+    "question": "What specific next decision or test should happen, and by what date?",
+    "why_it_matters": "A dated next step distinguishes progress from an interesting conversation."
+  }
+]

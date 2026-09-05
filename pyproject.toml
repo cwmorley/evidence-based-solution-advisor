@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evidence-based-solution-advisor"
+version = "0.1.0"
+description = "Explainable product, configuration, and service recommendations from structured discovery data."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+authors = [{name = "Chris Morley"}]
+keywords = ["recommendation-engine", "guided-selling", "workstations", "decision-support", "explainable-ai"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Office/Business",
+]
+dependencies = []
+
+[project.scripts]
+solution-advisor = "solution_advisor.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

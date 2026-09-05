@@ -1,0 +1,29 @@
+{
+  "intake_id": "demo-incomplete-001",
+  "vertical": "workstation",
+  "customer_context": {
+    "organization_type": "Product design firm",
+    "seats": 3
+  },
+  "workload": {
+    "applications": ["ExampleCAD Pro"]
+  },
+  "requirements": {
+    "min_cpu_cores": 16,
+    "min_memory_gb": 64,
+    "min_storage_tb": 2,
+    "allowed_primary_storage_types": ["NVMe SSD"],
+    "allowed_form_factors": ["desktop"],
+    "required_operating_systems": ["Windows 11 Pro"],
+    "required_certifications": ["ExampleCAD Pro"],
+    "support_level_min": "standard"
+  },
+  "environment": {},
+  "commercial": {},
+  "evaluation": {},
+  "services": {
+    "migration_required": false,
+    "application_optimization_required": false
+  },
+  "decision": {}
+}

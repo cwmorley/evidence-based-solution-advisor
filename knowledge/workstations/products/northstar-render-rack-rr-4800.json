@@ -1,0 +1,30 @@
+{
+  "product_id": "northstar-render-rack-rr-4800",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Northstar Labs", "model": "RenderRack", "model_number": "RR-4800"},
+  "description": "Synthetic rackmount system for shared render, simulation, and managed compute environments.",
+  "commercial": {
+    "sample_price_usd": 14000,
+    "sample_lead_time_weeks": 5,
+    "warranty_years": 3,
+    "support_level": "onsite"
+  },
+  "specifications": {
+    "form_factor": "rackmount",
+    "cpu": {"make": "Example Silicon", "family": "Matrix Pro", "model": "MP48", "cores": 48, "threads": 96},
+    "gpu": {"make": "Example Graphics", "model": "Compute Pro 4800", "vram_gb": 48, "memory_type": "GDDR7 ECC"},
+    "memory": {"capacity_gb": 256, "type": "DDR5", "speed_mt_s": 5200, "ecc": true},
+    "storage": {"total_capacity_tb": 8, "primary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 5.0"}, "secondary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 4.0"}},
+    "power": {"max_draw_w": 1500, "required_voltage": [240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleRender", "ExampleSimulation"],
+    "display": null
+  },
+  "evidence": [
+    {"source_id": "synthetic-catalog-v1", "source_type": "synthetic_demo", "observed_at": "2026-09-01", "confidence": 0.92, "note": "Fictional demonstration record; not a purchasable product."}
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/evidence-based-solution-advisor/competitive-observation.schema.json",
+  "title": "Competitive Product Observation",
+  "type": "object",
+  "required": ["observation_id", "synthetic", "observed_at", "source", "products"],
+  "properties": {
+    "observation_id": {"type": "string", "minLength": 1},
+    "synthetic": {"type": "boolean"},
+    "observed_at": {"type": "string", "format": "date"},
+    "source": {"type": "object"},
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["linked_product_id", "identity"],
+        "properties": {
+          "linked_product_id": {"type": "string"},
+          "identity": {
+            "type": "object",
+            "required": ["make", "model", "model_number"]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,31 @@
+{
+  "product_id": "northstar-arcstation-as-9600",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Northstar Labs", "model": "ArcStation", "model_number": "AS-9600"},
+  "description": "Synthetic large-memory tower for local AI, simulation, and GPU-memory-bound workloads.",
+  "commercial": {
+    "sample_price_usd": 18000,
+    "sample_lead_time_weeks": 6,
+    "warranty_years": 3,
+    "support_level": "onsite"
+  },
+  "specifications": {
+    "form_factor": "desktop",
+    "cpu": {"make": "Example Silicon", "family": "Matrix Pro", "model": "MP64", "cores": 64, "threads": 128},
+    "gpu": {"make": "Example Graphics", "model": "Compute Pro 9600", "vram_gb": 96, "memory_type": "GDDR7 ECC"},
+    "memory": {"capacity_gb": 512, "type": "DDR5", "speed_mt_s": 5200, "ecc": true},
+    "storage": {"total_capacity_tb": 8, "primary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 5.0"}, "secondary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 5.0"}},
+    "power": {"max_draw_w": 1800, "required_voltage": [240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleAI Runtime", "ExampleSimulation"],
+    "display": null
+  },
+  "evidence": [
+    {"source_id": "synthetic-catalog-v1", "source_type": "synthetic_demo", "observed_at": "2026-09-01", "confidence": 0.94, "note": "Fictional demonstration record; not a purchasable product."},
+    {"source_id": "synthetic-validation-v1", "source_type": "synthetic_builder_validation", "observed_at": "2026-09-01", "confidence": 0.84, "note": "Fictional local-inference validation record for demonstration."}
+  ]
+}

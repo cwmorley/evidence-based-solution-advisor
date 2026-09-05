@@ -1,0 +1,30 @@
+{
+  "product_id": "summit-forge-designcore-dc-240",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Summit Forge", "model": "DesignCore", "model_number": "DC-240"},
+  "description": "Synthetic competing design workstation with balanced specifications and limited validation evidence.",
+  "commercial": {
+    "sample_price_usd": 8700,
+    "sample_lead_time_weeks": 3,
+    "warranty_years": 3,
+    "support_level": "next_business_day"
+  },
+  "specifications": {
+    "form_factor": "desktop",
+    "cpu": {"make": "Example Silicon", "family": "Vector Pro", "model": "VP24", "cores": 24, "threads": 48},
+    "gpu": {"make": "Example Graphics", "model": "Studio Pro 3200", "vram_gb": 32, "memory_type": "GDDR7 ECC"},
+    "memory": {"capacity_gb": 128, "type": "DDR5", "speed_mt_s": 5600, "ecc": true},
+    "storage": {"total_capacity_tb": 4, "primary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 5.0"}},
+    "power": {"max_draw_w": 900, "required_voltage": [120, 240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleCAD Pro", "ExampleEdit Studio"],
+    "display": null
+  },
+  "evidence": [
+    {"source_id": "synthetic-competitor-catalog-v1", "source_type": "synthetic_public_catalog", "observed_at": "2026-09-01", "confidence": 0.82, "note": "Fictional market observation; not a purchasable product."}
+  ]
+}

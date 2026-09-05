@@ -1,0 +1,207 @@
+[
+  {
+    "id": "minimum_cpu_cores",
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.min_cpu_cores",
+    "product_path": "specifications.cpu.cores",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Minimum CPU core requirement has not been established",
+    "pass_message": "CPU core count meets the {requirement}-core minimum",
+    "fail_message": "CPU has {observed} cores; at least {requirement} are required"
+  },
+  {
+    "id": "minimum_gpu_vram",
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.min_gpu_vram_gb",
+    "product_path": "specifications.gpu.vram_gb",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Required GPU memory has not been established from the actual workload",
+    "pass_message": "GPU memory meets the {requirement} GB minimum",
+    "fail_message": "GPU has {observed} GB memory; at least {requirement} GB are required"
+  },
+  {
+    "id": "minimum_memory_capacity",
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.min_memory_gb",
+    "product_path": "specifications.memory.capacity_gb",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Required system-memory capacity has not been established",
+    "pass_message": "System memory meets the {requirement} GB minimum",
+    "fail_message": "System has {observed} GB memory; at least {requirement} GB are required"
+  },
+  {
+    "id": "minimum_memory_speed",
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.min_memory_speed_mt_s",
+    "product_path": "specifications.memory.speed_mt_s",
+    "pass_message": "Memory speed meets the {requirement} MT/s minimum",
+    "fail_message": "Memory runs at {observed} MT/s; at least {requirement} MT/s are required"
+  },
+  {
+    "id": "minimum_storage_capacity",
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.min_storage_tb",
+    "product_path": "specifications.storage.total_capacity_tb",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Required local storage capacity has not been established",
+    "pass_message": "Storage capacity meets the {requirement} TB minimum",
+    "fail_message": "System has {observed} TB storage; at least {requirement} TB are required"
+  },
+  {
+    "id": "primary_storage_type",
+    "operator": "product_in_requirement_list",
+    "requirement_path": "requirements.allowed_primary_storage_types",
+    "product_path": "specifications.storage.primary.type",
+    "pass_message": "Primary storage type {observed} is allowed",
+    "fail_message": "Primary storage type {observed} is not one of the permitted types: {requirement}"
+  },
+  {
+    "id": "form_factor",
+    "operator": "product_in_requirement_list",
+    "requirement_path": "requirements.allowed_form_factors",
+    "product_path": "specifications.form_factor",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Required form factor or portability has not been established",
+    "pass_message": "Form factor {observed} is allowed",
+    "fail_message": "Form factor {observed} is not permitted; allowed: {requirement}"
+  },
+  {
+    "id": "operating_system",
+    "operator": "product_contains_all_requirement",
+    "requirement_path": "requirements.required_operating_systems",
+    "product_path": "specifications.operating_systems",
+    "pass_message": "Required operating systems are supported",
+    "fail_message": "System does not support every required operating system: {requirement}"
+  },
+  {
+    "id": "application_certification",
+    "operator": "product_contains_all_requirement",
+    "requirement_path": "requirements.required_certifications",
+    "product_path": "specifications.certifications",
+    "pass_message": "All required application certifications are present",
+    "fail_message": "Missing one or more required certifications: {requirement}"
+  },
+  {
+    "id": "budget_ceiling",
+    "operator": "product_lte_requirement",
+    "requirement_path": "commercial.budget_usd_max",
+    "product_path": "commercial.sample_price_usd",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Customer budget ceiling has not been established",
+    "pass_message": "Synthetic sample price is within the ${requirement} ceiling",
+    "fail_message": "Synthetic sample price is ${observed}; budget ceiling is ${requirement}"
+  },
+  {
+    "id": "lead_time",
+    "operator": "product_lte_requirement",
+    "requirement_path": "commercial.lead_time_weeks_max",
+    "product_path": "commercial.sample_lead_time_weeks",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Maximum acceptable lead time has not been established",
+    "pass_message": "Synthetic lead time is within the {requirement}-week window",
+    "fail_message": "Synthetic lead time is {observed} weeks; maximum is {requirement} weeks"
+  },
+  {
+    "id": "support_level",
+    "operator": "support_at_least",
+    "requirement_path": "requirements.support_level_min",
+    "product_path": "commercial.support_level",
+    "pass_message": "Support level {observed} meets the {requirement} minimum",
+    "fail_message": "Support level {observed} does not meet the {requirement} minimum"
+  },
+  {
+    "id": "power_capacity",
+    "operator": "power_within_circuit",
+    "amps_path": "environment.circuit_amps",
+    "volts_path": "environment.voltage",
+    "product_path": "specifications.power.max_draw_w",
+    "continuous_load_factor": 0.8,
+    "unknown_message": "Available circuit capacity has not been measured or reported",
+    "pass_message": "Maximum system draw of {observed} W fits within the estimated {available} W continuous-load capacity",
+    "fail_message": "Maximum system draw is {observed} W, above the estimated {available} W continuous-load capacity"
+  },
+  {
+    "id": "laptop_panel_type",
+    "condition": {"path": "requirements.allowed_form_factors", "equals": ["laptop"]},
+    "operator": "product_in_requirement_list",
+    "requirement_path": "requirements.display.allowed_panel_types",
+    "product_path": "specifications.display.panel_type",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Acceptable laptop screen type has not been established",
+    "missing_product_message": "Laptop display panel type is missing",
+    "pass_message": "Display type {observed} is allowed",
+    "fail_message": "Display type {observed} is not one of the permitted types: {requirement}"
+  },
+  {
+    "id": "laptop_display_size",
+    "condition": {"path": "requirements.allowed_form_factors", "equals": ["laptop"]},
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.display.min_size_inches",
+    "product_path": "specifications.display.size_inches",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Minimum laptop display size has not been established",
+    "missing_product_message": "Laptop display size is missing",
+    "pass_message": "Display size meets the {requirement}-inch minimum",
+    "fail_message": "Display is {observed} inches; at least {requirement} inches are required"
+  },
+  {
+    "id": "laptop_horizontal_resolution",
+    "condition": {"path": "requirements.allowed_form_factors", "equals": ["laptop"]},
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.display.min_resolution_width",
+    "product_path": "specifications.display.resolution_width",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Minimum laptop display resolution has not been established",
+    "missing_product_message": "Laptop display resolution is missing",
+    "pass_message": "Horizontal resolution meets the {requirement}-pixel minimum",
+    "fail_message": "Horizontal resolution is {observed} pixels; at least {requirement} are required"
+  },
+  {
+    "id": "laptop_vertical_resolution",
+    "condition": {"path": "requirements.allowed_form_factors", "equals": ["laptop"]},
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.display.min_resolution_height",
+    "product_path": "specifications.display.resolution_height",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Minimum laptop display resolution has not been established",
+    "missing_product_message": "Laptop display resolution is missing",
+    "pass_message": "Vertical resolution meets the {requirement}-pixel minimum",
+    "fail_message": "Vertical resolution is {observed} pixels; at least {requirement} are required"
+  },
+  {
+    "id": "laptop_color_gamut",
+    "condition": {"path": "requirements.allowed_form_factors", "equals": ["laptop"]},
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.display.min_color_gamut_dci_p3_percent",
+    "product_path": "specifications.display.color_gamut_dci_p3_percent",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Required laptop color gamut has not been established",
+    "missing_product_message": "Laptop display color-gamut evidence is missing",
+    "pass_message": "Display meets the {requirement}% DCI-P3 requirement",
+    "fail_message": "Display covers {observed}% DCI-P3; at least {requirement}% is required"
+  },
+  {
+    "id": "laptop_brightness",
+    "condition": {"path": "requirements.allowed_form_factors", "equals": ["laptop"]},
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.display.min_brightness_nits",
+    "product_path": "specifications.display.brightness_nits",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Required laptop display brightness has not been established",
+    "missing_product_message": "Laptop display brightness evidence is missing",
+    "pass_message": "Display meets the {requirement}-nit brightness requirement",
+    "fail_message": "Display is rated at {observed} nits; at least {requirement} nits are required"
+  },
+  {
+    "id": "laptop_refresh_rate",
+    "condition": {"path": "requirements.allowed_form_factors", "equals": ["laptop"]},
+    "operator": "product_gte_requirement",
+    "requirement_path": "requirements.display.min_refresh_hz",
+    "product_path": "specifications.display.refresh_hz",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "Required laptop display refresh rate has not been established",
+    "missing_product_message": "Laptop display refresh-rate evidence is missing",
+    "pass_message": "Display meets the {requirement} Hz refresh-rate requirement",
+    "fail_message": "Display refresh is {observed} Hz; at least {requirement} Hz is required"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "service_id": "workload-validation",
+  "name": "Workload Validation",
+  "description": "Run the buyer's real dataset, project, or model on a candidate configuration before commitment and document the method, versions, result, and limitations.",
+  "trigger_groups": [
+    {
+      "mode": "all",
+      "reason": "The buyer requested an evaluation using their own workload.",
+      "triggers": [
+        {"source": "intake", "path": "evaluation.wants_workload_test", "operator": "equals", "value": true}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "product_id": "northstar-arcstation-as-4600",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Northstar Labs", "model": "ArcStation", "model_number": "AS-4600"},
+  "description": "Synthetic high-capacity tower with greater performance headroom and deployment demands.",
+  "commercial": {
+    "sample_price_usd": 9800,
+    "sample_lead_time_weeks": 5,
+    "warranty_years": 3,
+    "support_level": "next_business_day"
+  },
+  "specifications": {
+    "form_factor": "desktop",
+    "cpu": {"make": "Example Silicon", "family": "Vector Pro", "model": "VP32", "cores": 32, "threads": 64},
+    "gpu": {"make": "Example Graphics", "model": "Studio Pro 4800", "vram_gb": 48, "memory_type": "GDDR7 ECC"},
+    "memory": {"capacity_gb": 256, "type": "DDR5", "speed_mt_s": 5600, "ecc": true},
+    "storage": {"total_capacity_tb": 8, "primary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 5.0"}, "secondary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 4.0"}},
+    "power": {"max_draw_w": 1350, "required_voltage": [120, 240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleCAD Pro", "ExampleEdit Studio", "ExampleRender"],
+    "display": null
+  },
+  "evidence": [
+    {"source_id": "synthetic-catalog-v1", "source_type": "synthetic_demo", "observed_at": "2026-09-01", "confidence": 0.94, "note": "Fictional demonstration record; not a purchasable product."}
+  ]
+}

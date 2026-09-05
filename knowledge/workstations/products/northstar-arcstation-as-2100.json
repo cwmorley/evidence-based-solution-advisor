@@ -1,0 +1,30 @@
+{
+  "product_id": "northstar-arcstation-as-2100",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Northstar Labs", "model": "ArcStation", "model_number": "AS-2100"},
+  "description": "Synthetic entry professional tower for moderate design, editing, and visualization work.",
+  "commercial": {
+    "sample_price_usd": 4500,
+    "sample_lead_time_weeks": 2,
+    "warranty_years": 3,
+    "support_level": "standard"
+  },
+  "specifications": {
+    "form_factor": "desktop",
+    "cpu": {"make": "Example Silicon", "family": "Vector", "model": "V16", "cores": 16, "threads": 32},
+    "gpu": {"make": "Example Graphics", "model": "Studio 1600", "vram_gb": 16, "memory_type": "GDDR7"},
+    "memory": {"capacity_gb": 64, "type": "DDR5", "speed_mt_s": 5600, "ecc": false},
+    "storage": {"total_capacity_tb": 2, "primary": {"capacity_tb": 2, "type": "NVMe SSD", "interface": "PCIe 4.0"}},
+    "power": {"max_draw_w": 650, "required_voltage": [120, 240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleEdit Studio"],
+    "display": null
+  },
+  "evidence": [
+    {"source_id": "synthetic-catalog-v1", "source_type": "synthetic_demo", "observed_at": "2026-09-01", "confidence": 0.95, "note": "Fictional demonstration record; not a purchasable product."}
+  ]
+}

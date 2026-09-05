@@ -1,0 +1,30 @@
+{
+  "product_id": "northstar-meridian-mobile-mm-3200",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Northstar Labs", "model": "Meridian Mobile", "model_number": "MM-3200"},
+  "description": "Synthetic flagship mobile workstation with a high-brightness Mini-LED display.",
+  "commercial": {
+    "sample_price_usd": 8000,
+    "sample_lead_time_weeks": 5,
+    "warranty_years": 3,
+    "support_level": "onsite"
+  },
+  "specifications": {
+    "form_factor": "laptop",
+    "cpu": {"make": "Example Silicon", "family": "Vector Mobile", "model": "VM24", "cores": 24, "threads": 48},
+    "gpu": {"make": "Example Graphics", "model": "Studio Mobile 3200", "vram_gb": 32, "memory_type": "GDDR7"},
+    "memory": {"capacity_gb": 128, "type": "DDR5", "speed_mt_s": 6400, "ecc": false},
+    "storage": {"total_capacity_tb": 4, "primary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 5.0"}},
+    "power": {"max_draw_w": 350, "required_voltage": [120, 240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleEdit Studio", "ExampleRender"],
+    "display": {"size_inches": 17, "panel_type": "Mini-LED", "resolution_width": 3840, "resolution_height": 2400, "refresh_hz": 165, "brightness_nits": 1000, "color_gamut_dci_p3_percent": 100}
+  },
+  "evidence": [
+    {"source_id": "synthetic-catalog-v1", "source_type": "synthetic_demo", "observed_at": "2026-09-01", "confidence": 0.93, "note": "Fictional demonstration record; not a purchasable product."}
+  ]
+}

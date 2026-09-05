@@ -1,0 +1,14 @@
+{
+  "service_id": "application-optimization",
+  "name": "Application and Workflow Optimization",
+  "description": "Validate software versions, plugins, drivers, memory behavior, storage paths, and application settings so the delivered system addresses the real bottleneck.",
+  "trigger_groups": [
+    {
+      "mode": "all",
+      "reason": "The customer reports a software or workflow configuration risk in addition to hardware requirements.",
+      "triggers": [
+        {"source": "intake", "path": "services.application_optimization_required", "operator": "equals", "value": true}
+      ]
+    }
+  ]
+}

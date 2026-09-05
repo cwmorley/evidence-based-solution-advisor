@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/evidence-based-solution-advisor/intake.schema.json",
+  "title": "Solution Discovery Intake",
+  "type": "object",
+  "required": ["intake_id", "vertical", "requirements"],
+  "properties": {
+    "intake_id": {"type": "string", "minLength": 1},
+    "vertical": {"type": "string", "minLength": 1},
+    "customer_context": {"type": "object", "additionalProperties": true},
+    "workload": {"type": "object", "additionalProperties": true},
+    "requirements": {"type": "object", "additionalProperties": true},
+    "environment": {"type": "object", "additionalProperties": true},
+    "commercial": {"type": "object", "additionalProperties": true},
+    "evaluation": {"type": "object", "additionalProperties": true},
+    "services": {"type": "object", "additionalProperties": true},
+    "decision": {"type": "object", "additionalProperties": true}
+  },
+  "additionalProperties": true
+}

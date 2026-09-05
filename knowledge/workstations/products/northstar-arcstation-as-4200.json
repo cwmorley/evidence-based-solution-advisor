@@ -1,0 +1,31 @@
+{
+  "product_id": "northstar-arcstation-as-4200",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Northstar Labs", "model": "ArcStation", "model_number": "AS-4200"},
+  "description": "Synthetic balanced professional tower for CAD, visualization, and mixed technical workloads.",
+  "commercial": {
+    "sample_price_usd": 8500,
+    "sample_lead_time_weeks": 4,
+    "warranty_years": 3,
+    "support_level": "next_business_day"
+  },
+  "specifications": {
+    "form_factor": "desktop",
+    "cpu": {"make": "Example Silicon", "family": "Vector Pro", "model": "VP24", "cores": 24, "threads": 48},
+    "gpu": {"make": "Example Graphics", "model": "Studio Pro 3200", "vram_gb": 32, "memory_type": "GDDR7 ECC"},
+    "memory": {"capacity_gb": 128, "type": "DDR5", "speed_mt_s": 5600, "ecc": true},
+    "storage": {"total_capacity_tb": 4, "primary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 5.0"}},
+    "power": {"max_draw_w": 1000, "required_voltage": [120, 240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleCAD Pro", "ExampleEdit Studio", "ExampleRender"],
+    "display": null
+  },
+  "evidence": [
+    {"source_id": "synthetic-catalog-v1", "source_type": "synthetic_demo", "observed_at": "2026-09-01", "confidence": 0.95, "note": "Fictional demonstration record; not a purchasable product."},
+    {"source_id": "synthetic-validation-v1", "source_type": "synthetic_builder_validation", "observed_at": "2026-09-01", "confidence": 0.86, "note": "Fictional workload-validation record for demonstration."}
+  ]
+}

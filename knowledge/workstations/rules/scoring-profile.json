@@ -1,0 +1,38 @@
+{
+  "profile_id": "workstation-balanced-v1",
+  "description": "Balanced scoring applied only after hard constraints pass.",
+  "weights": {
+    "workload_fit": 0.35,
+    "economic_fit": 0.20,
+    "delivery_fit": 0.15,
+    "evidence_confidence": 0.15,
+    "deployment_fit": 0.10,
+    "support_fit": 0.05
+  },
+  "capacity_dimensions": [
+    {
+      "label": "CPU cores",
+      "requirement_path": "requirements.min_cpu_cores",
+      "product_path": "specifications.cpu.cores",
+      "target_headroom_ratio": 1.25
+    },
+    {
+      "label": "GPU memory",
+      "requirement_path": "requirements.min_gpu_vram_gb",
+      "product_path": "specifications.gpu.vram_gb",
+      "target_headroom_ratio": 1.25
+    },
+    {
+      "label": "system memory",
+      "requirement_path": "requirements.min_memory_gb",
+      "product_path": "specifications.memory.capacity_gb",
+      "target_headroom_ratio": 1.25
+    },
+    {
+      "label": "storage",
+      "requirement_path": "requirements.min_storage_tb",
+      "product_path": "specifications.storage.total_capacity_tb",
+      "target_headroom_ratio": 1.25
+    }
+  ]
+}

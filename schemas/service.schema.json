@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/evidence-based-solution-advisor/service.schema.json",
+  "title": "Service Offer",
+  "type": "object",
+  "required": ["service_id", "name", "description", "trigger_groups"],
+  "properties": {
+    "service_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "trigger_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["mode", "triggers"],
+        "properties": {
+          "mode": {"enum": ["all", "any"]},
+          "reason": {"type": "string"},
+          "triggers": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

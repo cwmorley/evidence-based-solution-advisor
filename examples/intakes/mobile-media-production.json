@@ -1,0 +1,51 @@
+{
+  "intake_id": "demo-media-mobile-001",
+  "vertical": "workstation",
+  "customer_context": {
+    "organization_type": "Independent media production studio",
+    "seats": 1,
+    "deployment_location": "Studio and field"
+  },
+  "workload": {
+    "primary_job": "High-resolution editing, color review, and field ingest",
+    "applications": ["ExampleEdit Studio"],
+    "quantified_bottleneck": "Current laptop drops frames during multicamera edits and the display cannot be trusted for client review",
+    "business_impact": "Proxy generation and repeated color checks add five to seven hours per project"
+  },
+  "requirements": {
+    "min_cpu_cores": 12,
+    "min_gpu_vram_gb": 16,
+    "min_memory_gb": 64,
+    "min_memory_speed_mt_s": 5600,
+    "min_storage_tb": 2,
+    "allowed_primary_storage_types": ["NVMe SSD"],
+    "allowed_form_factors": ["laptop"],
+    "required_operating_systems": ["Windows 11 Pro"],
+    "required_certifications": ["ExampleEdit Studio"],
+    "support_level_min": "next_business_day",
+    "display": {
+      "allowed_panel_types": ["OLED"],
+      "min_size_inches": 16,
+      "min_resolution_width": 3840,
+      "min_resolution_height": 2400,
+      "min_color_gamut_dci_p3_percent": 95,
+      "min_brightness_nits": 500,
+      "min_refresh_hz": 120
+    }
+  },
+  "environment": {
+    "circuit_amps": 15,
+    "voltage": 120,
+    "noise_sensitive": true
+  },
+  "commercial": {
+    "budget_usd_max": 6000,
+    "lead_time_weeks_max": 4
+  },
+  "evaluation": {"wants_workload_test": true},
+  "services": {
+    "migration_required": true,
+    "application_optimization_required": false
+  },
+  "decision": {"next_step_date": "2026-09-15"}
+}

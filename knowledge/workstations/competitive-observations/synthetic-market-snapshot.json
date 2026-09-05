@@ -1,0 +1,39 @@
+{
+  "observation_id": "synthetic-market-snapshot-2026-09",
+  "synthetic": true,
+  "observed_at": "2026-09-01",
+  "source": {
+    "source_id": "synthetic-market-watch-v1",
+    "source_type": "synthetic_competitive_observation",
+    "confidence": 0.8
+  },
+  "products": [
+    {
+      "linked_product_id": "summit-forge-designcore-dc-240",
+      "identity": {"make": "Summit Forge", "model": "DesignCore", "model_number": "DC-240"},
+      "sample_price_usd": 8700,
+      "sample_lead_time_weeks": 3,
+      "positioning_observed": "Balanced configuration for professional design teams",
+      "strengths_observed": ["Lower maximum power draw", "Shorter synthetic lead time"],
+      "risks_or_unknowns": ["No synthetic builder workload validation attached"]
+    },
+    {
+      "linked_product_id": "summit-forge-fieldstudio-fs-16",
+      "identity": {"make": "Summit Forge", "model": "FieldStudio", "model_number": "FS-16"},
+      "sample_price_usd": 5600,
+      "sample_lead_time_weeks": 2,
+      "positioning_observed": "Portable color and editing workstation",
+      "strengths_observed": ["Short synthetic lead time", "Lower maximum power draw"],
+      "risks_or_unknowns": ["Display claim has not been independently validated in the synthetic evidence set"]
+    },
+    {
+      "linked_product_id": "vertex-machine-cognition-cm-96",
+      "identity": {"make": "Vertex Machine", "model": "Cognition", "model_number": "CM-96"},
+      "sample_price_usd": 19500,
+      "sample_lead_time_weeks": 7,
+      "positioning_observed": "Large-memory local AI development system",
+      "strengths_observed": ["Meets the synthetic 96 GB GPU-memory threshold"],
+      "risks_or_unknowns": ["Higher synthetic price", "Thinner synthetic validation record"]
+    }
+  ]
+}

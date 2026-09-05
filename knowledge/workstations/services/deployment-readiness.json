@@ -1,0 +1,28 @@
+{
+  "service_id": "deployment-readiness",
+  "name": "Deployment Readiness Assessment",
+  "description": "Verify electrical, thermal, physical, network, security, software, and rollout conditions before systems arrive.",
+  "trigger_groups": [
+    {
+      "mode": "all",
+      "reason": "A multi-seat deployment creates coordination and rollout risk beyond the hardware configuration.",
+      "triggers": [
+        {"source": "intake", "path": "customer_context.seats", "operator": "gte", "value": 4}
+      ]
+    },
+    {
+      "mode": "all",
+      "reason": "The selected system has a high maximum power draw that warrants site verification.",
+      "triggers": [
+        {"source": "product", "path": "specifications.power.max_draw_w", "operator": "gte", "value": 1000}
+      ]
+    },
+    {
+      "mode": "all",
+      "reason": "Circuit capacity is missing and should be verified before deployment.",
+      "triggers": [
+        {"source": "intake", "path": "environment.circuit_amps", "operator": "missing"}
+      ]
+    }
+  ]
+}

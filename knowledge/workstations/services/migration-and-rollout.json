@@ -1,0 +1,14 @@
+{
+  "service_id": "migration-and-rollout",
+  "name": "Migration and Rollout",
+  "description": "Prepare the operating image, applications, plugins, data, policies, acceptance checks, and phased deployment plan.",
+  "trigger_groups": [
+    {
+      "mode": "all",
+      "reason": "The intake identifies migration as part of the required delivered-working state.",
+      "triggers": [
+        {"source": "intake", "path": "services.migration_required", "operator": "equals", "value": true}
+      ]
+    }
+  ]
+}

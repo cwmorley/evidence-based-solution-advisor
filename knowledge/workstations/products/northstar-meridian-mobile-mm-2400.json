@@ -1,0 +1,30 @@
+{
+  "product_id": "northstar-meridian-mobile-mm-2400",
+  "synthetic": true,
+  "vertical": "workstation",
+  "vertical_schema_version": "1.0",
+  "status": "active",
+  "effective_from": "2026-09-01",
+  "identity": {"make": "Northstar Labs", "model": "Meridian Mobile", "model_number": "MM-2400"},
+  "description": "Synthetic higher-capacity portable workstation for demanding media production.",
+  "commercial": {
+    "sample_price_usd": 5900,
+    "sample_lead_time_weeks": 4,
+    "warranty_years": 3,
+    "support_level": "next_business_day"
+  },
+  "specifications": {
+    "form_factor": "laptop",
+    "cpu": {"make": "Example Silicon", "family": "Vector Mobile", "model": "VM20", "cores": 20, "threads": 40},
+    "gpu": {"make": "Example Graphics", "model": "Studio Mobile 2400", "vram_gb": 24, "memory_type": "GDDR7"},
+    "memory": {"capacity_gb": 96, "type": "DDR5", "speed_mt_s": 6400, "ecc": false},
+    "storage": {"total_capacity_tb": 4, "primary": {"capacity_tb": 4, "type": "NVMe SSD", "interface": "PCIe 5.0"}},
+    "power": {"max_draw_w": 320, "required_voltage": [120, 240]},
+    "operating_systems": ["Windows 11 Pro", "Linux"],
+    "certifications": ["ExampleEdit Studio", "ExampleRender"],
+    "display": {"size_inches": 16, "panel_type": "OLED", "resolution_width": 3840, "resolution_height": 2400, "refresh_hz": 120, "brightness_nits": 550, "color_gamut_dci_p3_percent": 100}
+  },
+  "evidence": [
+    {"source_id": "synthetic-catalog-v1", "source_type": "synthetic_demo", "observed_at": "2026-09-01", "confidence": 0.92, "note": "Fictional demonstration record; not a purchasable product."}
+  ]
+}

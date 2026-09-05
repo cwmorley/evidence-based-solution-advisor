@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/evidence-based-solution-advisor/product.schema.json",
+  "title": "Product",
+  "type": "object",
+  "required": ["product_id", "synthetic", "vertical", "identity", "status", "commercial", "specifications", "evidence"],
+  "properties": {
+    "product_id": {"type": "string", "minLength": 1},
+    "synthetic": {"type": "boolean"},
+    "vertical": {"type": "string", "minLength": 1},
+    "vertical_schema_version": {"type": "string"},
+    "status": {"enum": ["active", "legacy", "discontinued", "unknown"]},
+    "effective_from": {"type": "string", "format": "date"},
+    "effective_to": {"type": ["string", "null"], "format": "date"},
+    "identity": {
+      "type": "object",
+      "required": ["make", "model", "model_number"],
+      "properties": {
+        "make": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "model_number": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "description": {"type": "string"},
+    "commercial": {
+      "type": "object",
+      "properties": {
+        "sample_price_usd": {"type": "number", "minimum": 0},
+        "sample_lead_time_weeks": {"type": "number", "minimum": 0},
+        "warranty_years": {"type": "number", "minimum": 0},
+        "support_level": {"enum": ["standard", "next_business_day", "onsite"]}
+      },
+      "additionalProperties": true
+    },
+    "specifications": {
+      "description": "A vertical-owned specification object. New verticals may define different fields without changing the stable identity and evidence envelope.",
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": true
+    },
+    "evidence": {
+      "type": "array",
+      "items": {"$ref": "evidence.schema.json"}
+    }
+  },
+  "additionalProperties": true
+}
