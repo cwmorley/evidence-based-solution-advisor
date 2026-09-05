@@ -113,6 +113,14 @@ solution-advisor recommend examples/intakes/incomplete-discovery.json
 
 The incomplete example deliberately leaves important facts unresolved. The engine labels the result `provisional_recommendation` while clearly listing missing questions and unknown constraints.
 
+Inspect how scoring dimensions vary across viable candidates:
+
+```text
+solution-advisor score-diagnostics examples/intakes/architecture-and-engineering.json examples/intakes/local-ai-development.json examples/intakes/mobile-media-production.json
+```
+
+Scores use fixed declared ranges before weighting. Reports retain raw scores and show their normalized contributions. Diagnostics describe the supplied cases; they do not validate the weights. See [scoring interpretation](docs/METHODOLOGY.md#scoring-interpretation).
+
 ## Tests
 
 ```powershell

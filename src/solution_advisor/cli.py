@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from .engine import recommend
+from .diagnostics import render_diagnostics, score_diagnostics
 from .io import AdvisorDataError, dump_json, load_json
 from .report import render_markdown
 
@@ -34,12 +35,20 @@ def build_parser() -> argparse.ArgumentParser:
     recommend_parser.add_argument(
         "--format", choices=("markdown", "json"), default="markdown", help="Console format"
     )
+    diagnostics = subparsers.add_parser("score-diagnostics", help="Inspect score variation across viable candidates")
+    diagnostics.add_argument("intakes", nargs="+", type=Path)
+    diagnostics.add_argument("--knowledge", type=Path, default=Path("knowledge/workstations"))
+    diagnostics.add_argument("--format", choices=("markdown", "json"), default="markdown")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
+        if args.command == "score-diagnostics":
+            result = score_diagnostics([load_json(path) for path in args.intakes], args.knowledge)
+            print(json.dumps(result, indent=2) if args.format == "json" else render_diagnostics(result))
+            return 0
         if args.command == "recommend":
             result = recommend(load_json(args.intake), args.knowledge)
             markdown = render_markdown(result)

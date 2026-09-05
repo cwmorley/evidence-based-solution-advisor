@@ -62,7 +62,10 @@ def render_markdown(result: dict[str, Any]) -> str:
         for name, dimension in selected["score_dimensions"].items():
             label = name.replace("_", " ").title()
             lines.append(
-                f"- **{label} — {dimension['score']} / 100:** {dimension['explanation']}"
+                f"- **{label} — raw {dimension['score']} / 100:** {dimension['explanation']}. "
+                f"Range {dimension['range_min']}–{dimension['range_max']}; "
+                f"normalized {dimension['normalized_score']:.3f}; weight {dimension['weight']:.4f}; "
+                f"contribution {dimension['weighted_contribution']:.2f} points."
             )
         lines.append("")
 

@@ -1,13 +1,12 @@
 {
-  "profile_id": "workstation-balanced-v1",
-  "description": "Balanced scoring applied only after hard constraints pass.",
+  "profile_id": "workstation-balanced-v2",
+  "description": "Fixed-range normalized scoring applied only after hard constraints pass.",
   "weights": {
-    "workload_fit": 0.35,
-    "economic_fit": 0.20,
-    "delivery_fit": 0.15,
-    "evidence_confidence": 0.15,
-    "deployment_fit": 0.10,
-    "support_fit": 0.05
+    "workload_fit": 0.3684210526315789,
+    "economic_fit": 0.2105263157894737,
+    "delivery_fit": 0.15789473684210525,
+    "evidence_confidence": 0.15789473684210525,
+    "deployment_fit": 0.10526315789473685
   },
   "capacity_dimensions": [
     {
