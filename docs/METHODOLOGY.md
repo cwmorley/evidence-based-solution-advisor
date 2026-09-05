@@ -92,9 +92,24 @@ Current dimensions are:
 - Delivery fit
 - Evidence confidence
 - Deployment fit
-- Support fit
 
 Weights belong to the vertical scoring profile and should be tested with domain experts. Changing a weight is a visible policy decision, not hidden model behavior.
+
+### Fixed ranges and contributions
+
+The `workstation-balanced-v2` profile removes the constant support score; support remains a hard constraint. Its former weight is redistributed proportionally across the five remaining dimensions. Each scoring function declares a fixed range: workload 65–100, deployment 55–100, and the others 0–100. Deployment includes the existing unresolved-circuit fallback of 55; measured deployment scores remain 70–100. These endpoints describe existing formulas and fallbacks, not validated buyer utility.
+
+For each dimension, `normalized = (raw - range_min) / (range_max - range_min)` and `contribution = 100 * normalized * weight`. The total is the sum of contributions, rounded once to two decimals. A dimension at its minimum contributes zero; at its maximum it contributes its full weighted share of 100. Non-finite or out-of-range values, non-positive range widths, and invalid weight profiles raise `ScoringProfileError`; they are not silently clamped.
+
+JSON retains every raw score and explanation and adds the range, normalized score, weight, and contribution. The Markdown report exposes this arithmetic for the leading recommendation. The profile ID identifies the changed scoring interpretation; v1 and v2 totals are not interchangeable.
+
+Normalization uses fixed declared ranges, never the spread of the current candidate set. Weights express tradeoffs over those ranges, not guaranteed influence in every sample. Products with similar prices can reasonably have similar economic contributions. Fixed scales do not validate the weights or the utility formulas. Missing inputs still use the documented baseline defaults; normalization does not resolve uncertainty, and provisional status and human review remain in force.
+
+### Weight diagnostics
+
+Run `solution-advisor score-diagnostics examples/intakes/architecture-and-engineering.json examples/intakes/local-ai-development.json examples/intakes/mobile-media-production.json`. Add `--format json` for structured output. Every active product of the matching vertical without a failed constraint is included, even if it falls outside the recommendation's top three; unknown constraints remain possible. Each intake/product pair is one observation. With multiple intakes the result pools those observations, so use a single intake when inspecting one customer's ordering.
+
+The table reports observed raw minimum, maximum and spread, the profile weight, and the spread of normalized weighted contributions in points. This is a descriptive sample diagnostic, not causal attribution or evidence that the largest observed spread should receive the largest weight. Empty sets report `n/a`; one observation has zero spread. Diagnostics do not change recommendations or rescale scores.
 
 ## Validation protocol
 

@@ -78,6 +78,7 @@ def recommend(intake: dict[str, Any], knowledge_root: str | Path) -> dict[str, A
             "All included product identities, specifications, prices, lead times, and evidence are fictional demonstration data."
         ),
         "decision_authority": "human_review_required",
+        "scoring_profile_id": knowledge["scoring"]["profile_id"],
         "intake_summary": _intake_summary(intake),
         "next_questions": next_questions(intake, knowledge["questions"]),
         "recommendation": selected,
