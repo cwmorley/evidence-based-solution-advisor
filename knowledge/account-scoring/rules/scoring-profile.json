@@ -38,6 +38,7 @@
       "min": 0.0
     }
   ],
+  "reason_limit": 3,
   "weights": {
     "industry_fit": 0.15,
     "employee_band_fit": 0.15,
