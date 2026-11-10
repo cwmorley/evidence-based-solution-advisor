@@ -122,6 +122,15 @@ class ConversationWordingTests(unittest.TestCase):
         self.assertNotIn("no products for", language)
         self.assertIn("Every candidate failed at least one hard requirement", render_markdown(result))
 
+    def test_recommendation_wording_follows_the_status(self):
+        ready = recommend(load_json(INTAKES / "architecture-and-engineering.json"), KNOWLEDGE)
+        provisional = recommend(load_json(INTAKES / "incomplete-discovery.json"), KNOWLEDGE)
+        self.assertEqual(ready["status"], "recommendation_ready")
+        self.assertEqual(provisional["status"], "provisional_recommendation")
+        self.assertNotIn("provisional", self.recommend_language(ready))
+        self.assertIn("human review", self.recommend_language(ready))
+        self.assertIn("provisional recommendation", self.recommend_language(provisional))
+
 
 if __name__ == "__main__":
     unittest.main()
