@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from solution_advisor.constraints import evaluate_rule  # noqa: E402
 from solution_advisor.engine import recommend  # noqa: E402
 from solution_advisor.io import load_json, load_knowledge_store  # noqa: E402
+from solution_advisor.report import render_markdown  # noqa: E402
 from solution_advisor.scoring import score_product  # noqa: E402
 
 
@@ -93,6 +94,33 @@ class ContinuousLoadFactorTests(unittest.TestCase):
                     selected["score_dimensions"]["deployment_fit"]["explanation"],
                     f"{available - draw} W continuous-load headroom",
                 )
+
+
+class ConversationWordingTests(unittest.TestCase):
+    def recommend_language(self, result):
+        return next(item for item in result["conversation_guide"] if item["stage"] == "recommend")["seller_language"]
+
+    def test_empty_catalogue_is_not_described_as_every_option_failing(self):
+        intake = load_json(INTAKES / "architecture-and-engineering.json")
+        intake["vertical"] = "commercial-hvac"
+        result = recommend(intake, KNOWLEDGE)
+        self.assertEqual(result["rejected_products"], [])
+        language = self.recommend_language(result)
+        self.assertIn("no products for the commercial-hvac vertical", language)
+        self.assertNotIn("fails at least one requirement", language)
+        report = render_markdown(result)
+        self.assertIn("no active products for the commercial-hvac vertical", report)
+        self.assertNotIn("Every candidate failed", report)
+
+    def test_all_products_rejected_says_every_option_fails(self):
+        intake = load_json(INTAKES / "architecture-and-engineering.json")
+        intake["requirements"]["min_gpu_vram_gb"] = 200
+        result = recommend(intake, KNOWLEDGE)
+        self.assertTrue(result["rejected_products"])
+        language = self.recommend_language(result)
+        self.assertIn("Every option fails at least one requirement", language)
+        self.assertNotIn("no products for", language)
+        self.assertIn("Every candidate failed at least one hard requirement", render_markdown(result))
 
 
 if __name__ == "__main__":

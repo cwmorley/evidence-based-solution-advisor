@@ -37,7 +37,11 @@ def render_markdown(result: dict[str, Any]) -> str:
             [
                 "## No viable configuration",
                 "",
-                "Every candidate failed at least one hard requirement. Review the rejection reasons instead of forcing a recommendation.",
+                (
+                    "Every candidate failed at least one hard requirement. Review the rejection reasons instead of forcing a recommendation."
+                    if result.get("rejected_products")
+                    else f"The catalog has no active products for the {result.get('vertical')} vertical, so nothing was evaluated or rejected."
+                ),
                 "",
             ]
         )
