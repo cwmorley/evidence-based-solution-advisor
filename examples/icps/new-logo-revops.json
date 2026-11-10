@@ -1,0 +1,22 @@
+{
+  "intake_id": "icp-new-logo-revops",
+  "icp_version": "2026-11-10",
+  "synthetic": true,
+  "vertical": "account-scoring",
+  "motion": "new_logo",
+  "description": "Fictional ICP for a new-logo motion selling RevOps services to mid-market B2B companies.",
+  "requirements": {
+    "excluded_industries": [
+      "gambling",
+      "government"
+    ],
+    "allowed_employee_bands": [
+      "51-200",
+      "201-500",
+      "501-1000",
+      "1001-5000",
+      "5001+"
+    ],
+    "existing_customer": false
+  }
+}

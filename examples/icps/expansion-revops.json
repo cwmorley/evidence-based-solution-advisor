@@ -1,0 +1,22 @@
+{
+  "intake_id": "icp-expansion-revops",
+  "icp_version": "2026-11-10",
+  "synthetic": true,
+  "vertical": "account-scoring",
+  "motion": "expansion",
+  "description": "Fictional ICP for an expansion motion. The new-logo rule does not apply, so existing customers are scored. The fit and intent weights are the new-logo ones and are not tuned for expansion.",
+  "requirements": {
+    "excluded_industries": [
+      "gambling",
+      "government"
+    ],
+    "allowed_employee_bands": [
+      "51-200",
+      "201-500",
+      "501-1000",
+      "1001-5000",
+      "5001+"
+    ],
+    "existing_customer": false
+  }
+}

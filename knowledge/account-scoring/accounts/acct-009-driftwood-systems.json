@@ -1,0 +1,38 @@
+{
+  "account_id": "acct-009-driftwood-systems",
+  "synthetic": true,
+  "vertical": "account-scoring",
+  "status": "active",
+  "name": "Driftwood Systems (fictional)",
+  "description": "Synthetic account whose industry is unknown, so the exclusion check cannot be resolved.",
+  "crm": {
+    "hubspot_company_id": "9000000009"
+  },
+  "firmographics": {
+    "industry": null,
+    "employee_band": "51-200",
+    "region": "emea",
+    "tech_stack": [
+      "salesforce"
+    ],
+    "arr_band": "1m-10m"
+  },
+  "signals": {
+    "recent_funding": true,
+    "revops_roles_open": 0,
+    "pricing_page_visits_30d": 0,
+    "champion_job_change": false,
+    "open_opportunity": false,
+    "existing_customer": false,
+    "competitor_in_use": true
+  },
+  "evidence": [
+    {
+      "source_id": "synthetic-accounts-v1",
+      "source_type": "synthetic_demo",
+      "observed_at": "2026-11-01",
+      "confidence": 1.0,
+      "note": "Fictional demonstration record; not a real company, CRM record, or intent feed."
+    }
+  ]
+}

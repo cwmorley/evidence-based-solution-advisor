@@ -1,0 +1,226 @@
+{
+  "profile_id": "account-fit-intent-v1",
+  "synthetic": true,
+  "description": "Fixed-range weighted fit and intent criteria applied only after hard disqualifiers pass. Every weight is an illustrative policy choice for a fictional ICP, not a validated model.",
+  "grade_thresholds": [
+    {
+      "grade": "A",
+      "min_score": 75,
+      "meaning": "Work now: strong fit and active intent."
+    },
+    {
+      "grade": "B",
+      "min_score": 55,
+      "meaning": "Work this cycle: good fit or strong intent, not both."
+    },
+    {
+      "grade": "C",
+      "min_score": 35,
+      "meaning": "Nurture: partial fit or early intent."
+    },
+    {
+      "grade": "D",
+      "min_score": 0,
+      "meaning": "Do not prioritize: weak fit and little intent."
+    }
+  ],
+  "confidence_bands": [
+    {
+      "band": "high",
+      "min": 0.85
+    },
+    {
+      "band": "medium",
+      "min": 0.6
+    },
+    {
+      "band": "low",
+      "min": 0.0
+    }
+  ],
+  "weights": {
+    "industry_fit": 0.15,
+    "employee_band_fit": 0.15,
+    "arr_band_fit": 0.1,
+    "tech_stack_fit": 0.1,
+    "region_fit": 0.05,
+    "pricing_page_visits": 0.12,
+    "hiring_revops": 0.1,
+    "recent_funding": 0.08,
+    "champion_job_change": 0.07,
+    "open_opportunity": 0.05,
+    "no_incumbent_competitor": 0.03
+  },
+  "criteria": [
+    {
+      "id": "industry_fit",
+      "group": "fit",
+      "label": "Industry fit",
+      "kind": "lookup",
+      "path": "firmographics.industry",
+      "scores": {
+        "b2b_saas": 1.0,
+        "fintech": 0.8,
+        "professional_services": 0.6,
+        "manufacturing": 0.4
+      },
+      "default_score": 0.2,
+      "explain": "industry is {observed}",
+      "rationale": "Joint-heaviest fit weight (15): industry decides whether the offer's use cases apply at all. Unlisted industries get 0.2 rather than 0 because they are not excluded, only unproven."
+    },
+    {
+      "id": "employee_band_fit",
+      "group": "fit",
+      "label": "Company size fit",
+      "kind": "lookup",
+      "path": "firmographics.employee_band",
+      "scores": {
+        "51-200": 0.6,
+        "201-500": 1.0,
+        "501-1000": 1.0,
+        "1001-5000": 0.5,
+        "5001+": 0.2
+      },
+      "default_score": 0.0,
+      "explain": "{observed} employees",
+      "rationale": "Joint-heaviest fit weight (15): size drives deal size and whether a RevOps function exists. The sweet spot is 201-1000; larger companies score lower because sales cycles lengthen."
+    },
+    {
+      "id": "arr_band_fit",
+      "group": "fit",
+      "label": "Revenue band fit",
+      "kind": "lookup",
+      "path": "firmographics.arr_band",
+      "scores": {
+        "<1m": 0.1,
+        "1m-10m": 0.6,
+        "10m-50m": 1.0,
+        "50m-250m": 0.7,
+        "250m+": 0.3
+      },
+      "default_score": 0.0,
+      "explain": "ARR band is {observed}",
+      "rationale": "Weight 10: ability to pay. Lower than size because ARR is often estimated and overlaps with employee band."
+    },
+    {
+      "id": "tech_stack_fit",
+      "group": "fit",
+      "label": "Tech stack fit",
+      "kind": "lookup",
+      "path": "firmographics.tech_stack",
+      "scores": {
+        "hubspot": 1.0,
+        "salesforce": 0.5
+      },
+      "default_score": 0.0,
+      "explain": "tech stack is {observed}",
+      "rationale": "Weight 10: an account already on the supported CRM needs no migration. A list scores as its best-matching entry; an empty list is a known 'no match', a null is unknown."
+    },
+    {
+      "id": "region_fit",
+      "group": "fit",
+      "label": "Region fit",
+      "kind": "lookup",
+      "path": "firmographics.region",
+      "scores": {
+        "north_america": 1.0,
+        "emea": 0.7,
+        "apac": 0.4,
+        "latam": 0.4
+      },
+      "default_score": 0.0,
+      "explain": "region is {observed}",
+      "rationale": "Weight 5: region affects time-zone coverage only, so it is the lightest fit criterion."
+    },
+    {
+      "id": "pricing_page_visits",
+      "group": "intent",
+      "label": "Pricing-page visits",
+      "kind": "tiers",
+      "path": "signals.pricing_page_visits_30d",
+      "tiers": [
+        {
+          "min": 5,
+          "score": 1.0
+        },
+        {
+          "min": 2,
+          "score": 0.6
+        },
+        {
+          "min": 1,
+          "score": 0.3
+        }
+      ],
+      "explain": "{observed} pricing-page visit(s) in the last 30 days",
+      "rationale": "Heaviest intent weight (12): the most direct first-party buying signal. Tiered so one stray visit does not count as much as repeated visits."
+    },
+    {
+      "id": "hiring_revops",
+      "group": "intent",
+      "label": "Hiring for RevOps",
+      "kind": "tiers",
+      "path": "signals.revops_roles_open",
+      "tiers": [
+        {
+          "min": 2,
+          "score": 1.0
+        },
+        {
+          "min": 1,
+          "score": 0.7
+        }
+      ],
+      "explain": "{observed} open RevOps role(s)",
+      "rationale": "Weight 10: open RevOps roles show budget and an acknowledged gap."
+    },
+    {
+      "id": "recent_funding",
+      "group": "intent",
+      "label": "Recent funding",
+      "kind": "boolean",
+      "path": "signals.recent_funding",
+      "score_true": 1.0,
+      "score_false": 0.0,
+      "explain_true": "raised funding in the last 12 months",
+      "explain_false": "no funding in the last 12 months",
+      "rationale": "Weight 8: new capital usually precedes GTM investment, but it is a weaker signal than behaviour on our own site."
+    },
+    {
+      "id": "champion_job_change",
+      "group": "intent",
+      "label": "Champion job change",
+      "kind": "boolean",
+      "path": "signals.champion_job_change",
+      "score_true": 1.0,
+      "score_false": 0.0,
+      "explain_true": "a past champion recently joined this account",
+      "explain_false": "no known champion at this account",
+      "rationale": "Weight 7: a known champion shortens the path to a first meeting."
+    },
+    {
+      "id": "open_opportunity",
+      "group": "intent",
+      "label": "Open opportunity",
+      "kind": "boolean",
+      "path": "signals.open_opportunity",
+      "score_true": 1.0,
+      "score_false": 0.0,
+      "explain_true": "an opportunity is already open",
+      "explain_false": "no open opportunity",
+      "rationale": "Weight 5: confirms engagement, but kept low because the pipeline already tracks it and a heavier weight would double-count."
+    },
+    {
+      "id": "no_incumbent_competitor",
+      "group": "intent",
+      "label": "No incumbent competitor",
+      "kind": "boolean",
+      "path": "signals.competitor_in_use",
+      "score_true": 0.0,
+      "score_false": 1.0,
+      "explain_true": "a competitor is already in use",
+      "explain_false": "no competitor in use",
+      "rationale": "Weight 3: an incumbent makes the deal harder, not impossible, so it costs a few points instead of disqualifying. A displacement motion could reverse this."
+    }
+  ]
+}

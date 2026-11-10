@@ -1,0 +1,38 @@
+{
+  "account_id": "acct-011-zephyr-cloudworks",
+  "synthetic": true,
+  "vertical": "account-scoring",
+  "status": "active",
+  "name": "Zephyr Cloudworks (fictional)",
+  "description": "Synthetic account constructed to tie with acct-010.",
+  "crm": {
+    "hubspot_company_id": "9000000011"
+  },
+  "firmographics": {
+    "industry": "b2b_saas",
+    "employee_band": "201-500",
+    "region": "north_america",
+    "tech_stack": [
+      "salesforce"
+    ],
+    "arr_band": "10m-50m"
+  },
+  "signals": {
+    "recent_funding": false,
+    "revops_roles_open": 0,
+    "pricing_page_visits_30d": 2,
+    "champion_job_change": false,
+    "open_opportunity": true,
+    "existing_customer": false,
+    "competitor_in_use": true
+  },
+  "evidence": [
+    {
+      "source_id": "synthetic-accounts-v1",
+      "source_type": "synthetic_demo",
+      "observed_at": "2026-11-01",
+      "confidence": 1.0,
+      "note": "Fictional demonstration record; not a real company, CRM record, or intent feed."
+    }
+  ]
+}
