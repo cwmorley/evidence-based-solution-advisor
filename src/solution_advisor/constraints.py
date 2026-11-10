@@ -15,6 +15,16 @@ from .io import get_path
 
 MISSING = object()
 SUPPORT_LEVELS = {"standard": 0, "next_business_day": 1, "onsite": 2}
+# Used only when a power rule does not declare continuous_load_factor.
+DEFAULT_CONTINUOUS_LOAD_FACTOR = 0.8
+
+
+def continuous_load_factor(rules: list[dict[str, Any]] | None) -> float:
+    """The factor declared by the power rule; the one value constraints and scoring both use."""
+    for rule in rules or []:
+        if rule.get("operator") == "power_within_circuit":
+            return float(rule.get("continuous_load_factor", DEFAULT_CONTINUOUS_LOAD_FACTOR))
+    return DEFAULT_CONTINUOUS_LOAD_FACTOR
 
 
 @dataclass(frozen=True)
@@ -122,18 +132,18 @@ def _evaluate_power(
     amps = get_path(intake, rule["amps_path"], MISSING)
     volts = get_path(intake, rule["volts_path"], MISSING)
     observed = get_path(product, rule["product_path"], MISSING)
-    if amps is MISSING or volts is MISSING:
+    if amps is MISSING or amps is None or volts is MISSING or volts is None:
         return ConstraintResult(
             rule["id"],
             "unknown",
             rule.get("unknown_message", "Available circuit capacity has not been verified"),
             observed=None if observed is MISSING else observed,
         )
-    if observed is MISSING:
+    if observed is MISSING or observed is None:
         return ConstraintResult(
             rule["id"], "failed", "Product maximum power draw is missing"
         )
-    factor = float(rule.get("continuous_load_factor", 0.8))
+    factor = continuous_load_factor([rule])
     available_watts = float(amps) * float(volts) * factor
     passed = float(observed) <= available_watts
     template = rule["pass_message" if passed else "fail_message"]

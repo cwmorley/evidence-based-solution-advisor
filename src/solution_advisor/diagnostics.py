@@ -20,7 +20,7 @@ def score_diagnostics(intakes: list[dict[str, Any]], knowledge_root: str | Path)
             constraints = evaluate_constraints(intake, product, knowledge["constraints"])
             if any(item.status == "failed" for item in constraints):
                 continue
-            _, dimensions = score_product(intake, product, knowledge["scoring"])
+            _, dimensions = score_product(intake, product, knowledge["scoring"], knowledge["constraints"])
             count += 1
             for name, dimension in dimensions.items():
                 observations[name].append(dimension)

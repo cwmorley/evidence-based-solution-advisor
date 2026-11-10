@@ -62,19 +62,28 @@ def build_conversation_guide(
     if selected:
         identity = selected["identity"]
         unknowns = result.get("unresolved_constraints", [])
+        if result.get("status") == "recommendation_ready":
+            standing = (
+                "It meets every stated hard requirement. It still needs human review and "
+                "verification of current commercial details before it becomes a quote."
+            )
+        else:
+            standing = (
+                "That is a provisional recommendation until the remaining facts and current "
+                "commercial details are verified."
+            )
         guide.append(
             {
                 "stage": "recommend",
                 "seller_language": (
                     f"Based on what we have established so far, the leading fit is the "
                     f"{identity['make']} {identity['model']} {identity['model_number']}. "
-                    "That is a provisional recommendation until the remaining facts and current "
-                    "commercial details are verified."
+                    + standing
                 ),
                 "unresolved_before_quote": unknowns,
             }
         )
-    else:
+    elif result.get("rejected_products"):
         guide.append(
             {
                 "stage": "recommend",
@@ -82,6 +91,17 @@ def build_conversation_guide(
                     "I do not have a responsible configuration to recommend from the current "
                     "catalog. Every option fails at least one requirement, so the next step is to "
                     "verify the requirements or find a different solution—not force a quote."
+                ),
+            }
+        )
+    else:
+        guide.append(
+            {
+                "stage": "recommend",
+                "seller_language": (
+                    "I do not have a configuration to recommend because the current catalog has "
+                    f"no products for the {result.get('vertical')} vertical. Nothing was evaluated "
+                    "or rejected, so the next step is to confirm the product category—not force a quote."
                 ),
             }
         )

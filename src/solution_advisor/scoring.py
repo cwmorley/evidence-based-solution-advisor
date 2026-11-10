@@ -5,6 +5,7 @@ from __future__ import annotations
 import math
 from typing import Any
 
+from .constraints import continuous_load_factor
 from .io import get_path
 
 
@@ -13,14 +14,17 @@ class ScoringProfileError(ValueError):
 
 
 def score_product(
-    intake: dict[str, Any], product: dict[str, Any], profile: dict[str, Any]
+    intake: dict[str, Any],
+    product: dict[str, Any],
+    profile: dict[str, Any],
+    constraints: list[dict[str, Any]] | None = None,
 ) -> tuple[float, dict[str, dict[str, Any]]]:
     dimensions = {
         "workload_fit": _workload_fit(intake, product, profile),
         "economic_fit": _economic_fit(intake, product),
         "delivery_fit": _delivery_fit(intake, product),
         "evidence_confidence": _evidence_confidence(product),
-        "deployment_fit": _deployment_fit(intake, product),
+        "deployment_fit": _deployment_fit(intake, product, continuous_load_factor(constraints)),
     }
     weights = profile["weights"]
     if set(weights) != set(dimensions):
@@ -102,7 +106,7 @@ def _evidence_confidence(product: dict[str, Any]) -> dict[str, Any]:
     records = product.get("evidence", [])
     if not records:
         return {"range_min": 0.0, "range_max": 100.0, "score": 0.0, "explanation": "No evidence records supplied"}
-    score = sum(float(record.get("confidence", 0)) for record in records) / len(records) * 100
+    score = sum(float(record.get("confidence") or 0) for record in records) / len(records) * 100
     return {
         "range_min": 0.0, "range_max": 100.0,
         "score": round(score, 2),
@@ -110,13 +114,13 @@ def _evidence_confidence(product: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _deployment_fit(intake: dict[str, Any], product: dict[str, Any]) -> dict[str, Any]:
+def _deployment_fit(intake: dict[str, Any], product: dict[str, Any], load_factor: float) -> dict[str, Any]:
     amps = get_path(intake, "environment.circuit_amps")
     volts = get_path(intake, "environment.voltage")
     draw = get_path(product, "specifications.power.max_draw_w")
     if not amps or not volts or draw is None:
         return {"range_min": 55.0, "range_max": 100.0, "score": 55.0, "explanation": "Circuit capacity remains unverified"}
-    available = float(amps) * float(volts) * 0.8
+    available = float(amps) * float(volts) * load_factor
     headroom = max(0.0, 1.0 - float(draw) / available)
     return {
         "range_min": 55.0, "range_max": 100.0,
