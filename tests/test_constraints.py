@@ -60,6 +60,36 @@ class ConstraintTests(unittest.TestCase):
         result = evaluate_rule(intake, product, rule)
         self.assertEqual(result.status, "failed")
 
+    def test_exclusion_list_fails_only_listed_values(self):
+        intake = {"requirements": {"excluded": ["gambling"]}}
+        rule = {
+            "id": "excluded",
+            "operator": "product_not_in_requirement_list",
+            "requirement_path": "requirements.excluded",
+            "product_path": "firmographics.industry",
+            "pass_message": "{observed} allowed",
+            "fail_message": "{observed} excluded",
+        }
+        listed = evaluate_rule(intake, {"firmographics": {"industry": "gambling"}}, rule)
+        other = evaluate_rule(intake, {"firmographics": {"industry": "b2b_saas"}}, rule)
+        self.assertEqual((listed.status, listed.message), ("failed", "gambling excluded"))
+        self.assertEqual(other.status, "passed")
+
+    def test_missing_product_fact_fails_by_default_and_can_be_declared_unknown(self):
+        intake = {"requirements": {"excluded": ["gambling"]}}
+        rule = {
+            "id": "excluded",
+            "operator": "product_not_in_requirement_list",
+            "requirement_path": "requirements.excluded",
+            "product_path": "firmographics.industry",
+            "missing_product_message": "Industry is not recorded",
+        }
+        for product in ({"firmographics": {}}, {"firmographics": {"industry": None}}):
+            self.assertEqual(evaluate_rule(intake, product, rule).status, "failed")
+            declared = evaluate_rule(intake, product, {**rule, "on_missing_product": "unknown"})
+            self.assertEqual(declared.status, "unknown")
+            self.assertEqual(declared.message, "Industry is not recorded")
+
 
 if __name__ == "__main__":
     unittest.main()

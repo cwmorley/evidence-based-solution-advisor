@@ -1,0 +1,45 @@
+[
+  {
+    "id": "excluded_industry",
+    "operator": "product_not_in_requirement_list",
+    "requirement_path": "requirements.excluded_industries",
+    "product_path": "firmographics.industry",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "The ICP does not state its excluded industries",
+    "on_missing_product": "unknown",
+    "missing_product_message": "Industry is unknown, so the excluded-industry check is unresolved",
+    "pass_message": "Industry {observed} is not excluded",
+    "fail_message": "Industry {observed} is excluded by the ICP",
+    "rationale": "Industries the business has decided not to sell to. No score can override this."
+  },
+  {
+    "id": "minimum_size",
+    "operator": "product_in_requirement_list",
+    "requirement_path": "requirements.allowed_employee_bands",
+    "product_path": "firmographics.employee_band",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "The ICP does not state which company sizes it sells to",
+    "on_missing_product": "unknown",
+    "missing_product_message": "Employee band is unknown, so the minimum-size check is unresolved",
+    "pass_message": "Employee band {observed} meets the minimum size",
+    "fail_message": "Employee band {observed} is not a company size this ICP sells to",
+    "rationale": "Below the minimum band the service cannot be delivered profitably."
+  },
+  {
+    "id": "new_logo_only",
+    "condition": {
+      "path": "motion",
+      "equals": "new_logo"
+    },
+    "operator": "product_equals_requirement",
+    "requirement_path": "requirements.existing_customer",
+    "product_path": "signals.existing_customer",
+    "on_missing_requirement": "unknown",
+    "unknown_message": "The ICP does not state whether existing customers are in scope",
+    "on_missing_product": "unknown",
+    "missing_product_message": "Customer status is unknown, so the new-logo check is unresolved",
+    "pass_message": "Not an existing customer",
+    "fail_message": "Existing customer; out of scope for a new-logo motion",
+    "rationale": "Applies only when the ICP motion is new_logo. Existing customers belong to an expansion motion."
+  }
+]

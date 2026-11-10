@@ -65,6 +65,29 @@ Northstar Labs ArcStation AS-2100
 
 The generated report also includes the scoring dimensions, unresolved facts, next questions, and rejection reasons.
 
+## Second example: which accounts should sales work first?
+
+A sales team has more accounts than hours. A score with no explanation gets ignored, and a score that quietly treats "we do not know" as "no" sends reps to the wrong accounts.
+
+The second example applies the same method to a list of companies. The business first writes down who it sells to: which industries are excluded, the minimum company size, and how much each fit and buying signal matters. Each account is then either ruled out with a stated reason, or graded A to D with the points behind the grade and a list of what is still unknown.
+
+```text
+A | 95.00 | Brightpath Analytics (fictional)
++15 of 15: Company size fit - 201-500 employees
++15 of 15: Industry fit - industry is b2b_saas
++12 of 12: Pricing-page visits - 7 pricing-page visit(s) in the last 30 days
+-5 of 5: Open opportunity - no open opportunity
+
+B | 60.00 | Meridian Loop (fictional), confidence 0.72 (medium)
+Missing: Tech stack fit is unknown: scored 0 of 10 possible points until resolved
+Provisional: could reach 88.00 (grade A) if every unknown resolved favourably
+
+Disqualified: Lucky Reel Gaming (fictional)
+Industry gambling is excluded by the ICP
+```
+
+The same run can print the update it would make to each company record in a CRM, so a person can read it before anything is connected. Every account, signal, rule, and weight in this example is fictional. **Nothing has been written to a live CRM, and this repository contains no code that can send anything to one.** See [the account-scoring worked example](docs/EXTENDING-A-VERTICAL.md#worked-example-account-scoring).
+
 ## How it works
 
 ```mermaid
@@ -121,6 +144,15 @@ solution-advisor score-diagnostics examples/intakes/architecture-and-engineering
 
 Scores use fixed declared ranges before weighting. Reports retain raw scores and show their normalized contributions. Diagnostics describe the supplied cases; they do not validate the weights. See [scoring interpretation](docs/METHODOLOGY.md#scoring-interpretation).
 
+### Account scoring and CRM write-back payloads
+
+```text
+solution-advisor score-accounts examples/icps/new-logo-revops.json
+solution-advisor score-accounts examples/icps/new-logo-revops.json --dry-run --scored-at 2026-11-10T00:00:00Z
+```
+
+The first command prints grades, scores, per-criterion points, reasons, and missing-data flags for the twelve fictional accounts. `--dry-run` prints the HubSpot company batch-update request bodies that a separate integration could send. There is no non-dry-run mode: the package builds the payload as data and stops. `examples/icps/expansion-revops.json` and `examples/icps/enterprise-only-no-match.json` show a different motion and an ICP that no account meets (exit code 2).
+
 ## Tests
 
 ```powershell
@@ -135,7 +167,10 @@ knowledge/workstations/products/  Fictional product records
 knowledge/workstations/competitive-observations/  Dated fictional market snapshots
 knowledge/workstations/services/  Service offers and matching triggers
 knowledge/workstations/rules/     Constraints, scoring, and next questions
+knowledge/account-scoring/accounts/  Fictional accounts with firmographics and signals
+knowledge/account-scoring/rules/   Disqualifiers, weights, and grade thresholds
 examples/intakes/                  Synthetic customer-discovery cases
+examples/icps/                     Synthetic ideal-customer-profile definitions
 schemas/                           Stable data envelopes and extension points
 src/solution_advisor/              Deterministic recommendation engine
 tests/                             Behavioral and safety-boundary tests

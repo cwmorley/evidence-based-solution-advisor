@@ -11,6 +11,7 @@
         "product_gte_requirement",
         "product_lte_requirement",
         "product_in_requirement_list",
+        "product_not_in_requirement_list",
         "product_contains_all_requirement",
         "product_equals_requirement",
         "support_at_least",
@@ -20,6 +21,7 @@
     "requirement_path": {"type": "string"},
     "product_path": {"type": "string"},
     "on_missing_requirement": {"enum": ["skipped", "unknown", "failed"]},
+    "on_missing_product": {"enum": ["failed", "unknown"]},
     "condition": {"type": "object"}
   },
   "additionalProperties": true

@@ -1,0 +1,18 @@
+{
+  "intake_id": "icp-enterprise-only",
+  "icp_version": "2026-11-10",
+  "synthetic": true,
+  "vertical": "account-scoring",
+  "motion": "new_logo",
+  "description": "Fictional ICP whose minimum size no synthetic account meets. Demonstrates the no-qualified-account result.",
+  "requirements": {
+    "excluded_industries": [
+      "gambling",
+      "government"
+    ],
+    "allowed_employee_bands": [
+      "10001+"
+    ],
+    "existing_customer": false
+  }
+}

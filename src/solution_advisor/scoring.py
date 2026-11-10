@@ -29,9 +29,7 @@ def score_product(
     weights = profile["weights"]
     if set(weights) != set(dimensions):
         raise ScoringProfileError("weights must name exactly the scoring dimensions")
-    values = [float(value) for value in weights.values()]
-    if any(not math.isfinite(value) or value < 0 for value in values) or not math.isclose(sum(values), 1.0, abs_tol=1e-9):
-        raise ScoringProfileError("weights must be finite, nonnegative, and sum to 1")
+    validate_weights(weights)
     total = 0.0
     for name, dimension in dimensions.items():
         normalized = normalize_dimension(name, dimension)
@@ -40,6 +38,12 @@ def score_product(
         dimension.update(normalized_score=normalized, weight=weight, weighted_contribution=contribution)
         total += contribution
     return round(total, 2), dimensions
+
+
+def validate_weights(weights: dict[str, Any]) -> None:
+    values = [float(value) for value in weights.values()]
+    if any(not math.isfinite(value) or value < 0 for value in values) or not math.isclose(sum(values), 1.0, abs_tol=1e-9):
+        raise ScoringProfileError("weights must be finite, nonnegative, and sum to 1")
 
 
 def normalize_dimension(name: str, dimension: dict[str, Any]) -> float:

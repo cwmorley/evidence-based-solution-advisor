@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/evidence-based-solution-advisor/account.schema.json",
+  "title": "Account Record (account-scoring vertical)",
+  "description": "A null or absent firmographic or signal means unknown. Unknown is reported and never scored as a known value.",
+  "type": "object",
+  "required": ["account_id", "synthetic", "vertical", "name", "firmographics", "signals", "evidence"],
+  "properties": {
+    "account_id": {"type": "string", "minLength": 1},
+    "synthetic": {"type": "boolean"},
+    "vertical": {"const": "account-scoring"},
+    "status": {"enum": ["active", "inactive"]},
+    "name": {"type": "string", "minLength": 1},
+    "crm": {
+      "type": "object",
+      "properties": {"hubspot_company_id": {"type": ["string", "null"]}},
+      "additionalProperties": true
+    },
+    "firmographics": {
+      "type": "object",
+      "properties": {
+        "industry": {"type": ["string", "null"]},
+        "employee_band": {"type": ["string", "null"]},
+        "region": {"type": ["string", "null"]},
+        "tech_stack": {"type": ["array", "null"], "items": {"type": "string"}},
+        "arr_band": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "signals": {
+      "type": "object",
+      "properties": {
+        "recent_funding": {"type": ["boolean", "null"]},
+        "revops_roles_open": {"type": ["integer", "null"], "minimum": 0},
+        "pricing_page_visits_30d": {"type": ["integer", "null"], "minimum": 0},
+        "champion_job_change": {"type": ["boolean", "null"]},
+        "open_opportunity": {"type": ["boolean", "null"]},
+        "existing_customer": {"type": ["boolean", "null"]},
+        "competitor_in_use": {"type": ["boolean", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "evidence": {"type": "array", "items": {"$ref": "evidence.schema.json"}}
+  },
+  "additionalProperties": true
+}

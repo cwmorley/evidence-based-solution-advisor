@@ -7,6 +7,8 @@ import json
 import sys
 from pathlib import Path
 
+from .account_scoring import render_account_report, score_accounts
+from .crm_writeback import build_batch_updates
 from .engine import recommend
 from .diagnostics import render_diagnostics, score_diagnostics
 from .io import AdvisorDataError, dump_json, load_json
@@ -39,6 +41,17 @@ def build_parser() -> argparse.ArgumentParser:
     diagnostics.add_argument("intakes", nargs="+", type=Path)
     diagnostics.add_argument("--knowledge", type=Path, default=Path("knowledge/workstations"))
     diagnostics.add_argument("--format", choices=("markdown", "json"), default="markdown")
+    accounts = subparsers.add_parser("score-accounts", help="Score accounts against an ICP definition")
+    accounts.add_argument("icp", type=Path, help="Path to an ICP JSON file")
+    accounts.add_argument("--knowledge", type=Path, default=Path("knowledge/account-scoring"))
+    accounts.add_argument("--json-out", type=Path, help="Write full JSON output")
+    accounts.add_argument("--format", choices=("markdown", "json"), default="markdown", help="Console format")
+    accounts.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print the HubSpot batch-update payloads that would be sent. Nothing is sent; no send path exists.",
+    )
+    accounts.add_argument("--scored-at", help="ISO 8601 timestamp for icp_scored_at (default: now, UTC)")
     return parser
 
 
@@ -49,6 +62,17 @@ def main(argv: list[str] | None = None) -> int:
             result = score_diagnostics([load_json(path) for path in args.intakes], args.knowledge)
             print(json.dumps(result, indent=2) if args.format == "json" else render_diagnostics(result))
             return 0
+        if args.command == "score-accounts":
+            result = score_accounts(load_json(args.icp), args.knowledge)
+            if args.json_out:
+                dump_json(result, args.json_out)
+            if args.dry_run:
+                print(json.dumps(build_batch_updates(result, args.scored_at), indent=2, ensure_ascii=False))
+            elif args.format == "json":
+                print(json.dumps(result, indent=2, ensure_ascii=False))
+            else:
+                print(render_account_report(result))
+            return 0 if result["scored_accounts"] else 2
         if args.command == "recommend":
             result = recommend(load_json(args.intake), args.knowledge)
             markdown = render_markdown(result)

@@ -1,0 +1,36 @@
+{
+  "account_id": "acct-012-pinecrest-staffing",
+  "synthetic": true,
+  "vertical": "account-scoring",
+  "status": "active",
+  "name": "Pinecrest Staffing (fictional)",
+  "description": "Synthetic weak-fit account with real intent.",
+  "crm": {
+    "hubspot_company_id": "9000000012"
+  },
+  "firmographics": {
+    "industry": "staffing",
+    "employee_band": "51-200",
+    "region": "apac",
+    "tech_stack": [],
+    "arr_band": "1m-10m"
+  },
+  "signals": {
+    "recent_funding": false,
+    "revops_roles_open": 1,
+    "pricing_page_visits_30d": 5,
+    "champion_job_change": false,
+    "open_opportunity": false,
+    "existing_customer": false,
+    "competitor_in_use": false
+  },
+  "evidence": [
+    {
+      "source_id": "synthetic-accounts-v1",
+      "source_type": "synthetic_demo",
+      "observed_at": "2026-11-01",
+      "confidence": 1.0,
+      "note": "Fictional demonstration record; not a real company, CRM record, or intent feed."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "account_id": "acct-006-tinyseed-labs",
+  "synthetic": true,
+  "vertical": "account-scoring",
+  "status": "active",
+  "name": "Tinyseed Labs (fictional)",
+  "description": "Synthetic account below the minimum size with strong intent.",
+  "crm": {
+    "hubspot_company_id": "9000000006"
+  },
+  "firmographics": {
+    "industry": "b2b_saas",
+    "employee_band": "11-50",
+    "region": "north_america",
+    "tech_stack": [
+      "hubspot"
+    ],
+    "arr_band": "<1m"
+  },
+  "signals": {
+    "recent_funding": true,
+    "revops_roles_open": 1,
+    "pricing_page_visits_30d": 8,
+    "champion_job_change": true,
+    "open_opportunity": false,
+    "existing_customer": false,
+    "competitor_in_use": false
+  },
+  "evidence": [
+    {
+      "source_id": "synthetic-accounts-v1",
+      "source_type": "synthetic_demo",
+      "observed_at": "2026-11-01",
+      "confidence": 1.0,
+      "note": "Fictional demonstration record; not a real company, CRM record, or intent feed."
+    }
+  ]
+}

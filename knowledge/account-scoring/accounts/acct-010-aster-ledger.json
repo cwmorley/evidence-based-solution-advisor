@@ -1,0 +1,38 @@
+{
+  "account_id": "acct-010-aster-ledger",
+  "synthetic": true,
+  "vertical": "account-scoring",
+  "status": "active",
+  "name": "Aster Ledger (fictional)",
+  "description": "Synthetic account constructed to tie with acct-011.",
+  "crm": {
+    "hubspot_company_id": "9000000010"
+  },
+  "firmographics": {
+    "industry": "fintech",
+    "employee_band": "201-500",
+    "region": "north_america",
+    "tech_stack": [
+      "hubspot"
+    ],
+    "arr_band": "10m-50m"
+  },
+  "signals": {
+    "recent_funding": false,
+    "revops_roles_open": 0,
+    "pricing_page_visits_30d": 2,
+    "champion_job_change": false,
+    "open_opportunity": false,
+    "existing_customer": false,
+    "competitor_in_use": false
+  },
+  "evidence": [
+    {
+      "source_id": "synthetic-accounts-v1",
+      "source_type": "synthetic_demo",
+      "observed_at": "2026-11-01",
+      "confidence": 1.0,
+      "note": "Fictional demonstration record; not a real company, CRM record, or intent feed."
+    }
+  ]
+}
