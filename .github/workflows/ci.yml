@@ -28,3 +28,13 @@ jobs:
           examples/intakes/architecture-and-engineering.json
           --json-out outputs/ci-recommendation.json
           --markdown-out outputs/ci-recommendation.md
+      - name: Run account-scoring example
+        run: >-
+          solution-advisor score-accounts
+          examples/icps/new-logo-revops.json
+          --json-out outputs/ci-account-scores.json
+      - name: Print CRM write-back payloads (dry run, nothing is sent)
+        run: >-
+          solution-advisor score-accounts
+          examples/icps/new-logo-revops.json
+          --dry-run
