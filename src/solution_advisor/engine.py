@@ -37,7 +37,7 @@ def recommend(intake: dict[str, Any], knowledge_root: str | Path) -> dict[str, A
             "unknowns": [result.message for result in unknowns],
         }
         if not failures:
-            score, dimensions = score_product(intake, product, knowledge["scoring"])
+            score, dimensions = score_product(intake, product, knowledge["scoring"], knowledge["constraints"])
             candidate["score"] = score
             candidate["score_dimensions"] = dimensions
             candidate["configuration"] = product["specifications"]

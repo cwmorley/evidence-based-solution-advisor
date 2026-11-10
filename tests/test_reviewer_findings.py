@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import copy
+import json
+import shutil
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -61,6 +64,35 @@ class NullValueTests(unittest.TestCase):
         result = recommend(intake, KNOWLEDGE)
         self.assertEqual(result["status"], "provisional_recommendation")
         self.assertIn("Available circuit capacity has not been measured or reported", result["unresolved_constraints"])
+
+
+class ContinuousLoadFactorTests(unittest.TestCase):
+    def run_with_factor(self, factor):
+        intake = load_json(INTAKES / "architecture-and-engineering.json")
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder) / "workstations"
+            shutil.copytree(KNOWLEDGE, root)
+            path = root / "rules" / "constraints.json"
+            rules = json.loads(path.read_text(encoding="utf-8"))
+            for rule in rules:
+                if rule["operator"] == "power_within_circuit":
+                    rule["continuous_load_factor"] = factor
+            path.write_text(json.dumps(rules), encoding="utf-8")
+            selected = recommend(intake, root)["recommendation"]
+        amps, volts = intake["environment"]["circuit_amps"], intake["environment"]["voltage"]
+        draw = selected["configuration"]["power"]["max_draw_w"]
+        return selected, round(amps * volts * factor), draw
+
+    def test_changing_the_rule_changes_the_constraint_and_the_score(self):
+        for factor in (0.8, 0.9, 1.0):
+            with self.subTest(factor=factor):
+                selected, available, draw = self.run_with_factor(factor)
+                power = next(item for item in selected["constraint_results"] if item["rule_id"] == "power_capacity")
+                self.assertEqual(power["requirement"], available)
+                self.assertEqual(
+                    selected["score_dimensions"]["deployment_fit"]["explanation"],
+                    f"{available - draw} W continuous-load headroom",
+                )
 
 
 if __name__ == "__main__":
