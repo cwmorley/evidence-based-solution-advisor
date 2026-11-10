@@ -52,6 +52,13 @@ def evaluate_rule(
 
     observed = get_path(product, rule["product_path"], MISSING)
     if observed is MISSING or observed is None:
+        if rule.get("on_missing_product") == "unknown":
+            return ConstraintResult(
+                rule_id,
+                "unknown",
+                rule.get("missing_product_message", "Required product evidence is missing"),
+                requirement=requirement,
+            )
         return ConstraintResult(
             rule_id,
             "failed",
@@ -107,6 +114,8 @@ def _compare(operator: str, observed: Any, requirement: Any) -> bool:
         return float(observed) <= float(requirement)
     if operator == "product_in_requirement_list":
         return observed in requirement
+    if operator == "product_not_in_requirement_list":
+        return observed not in requirement
     if operator == "product_contains_all_requirement":
         return set(requirement).issubset(set(observed))
     if operator == "product_equals_requirement":
