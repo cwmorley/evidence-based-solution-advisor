@@ -122,14 +122,14 @@ def _evaluate_power(
     amps = get_path(intake, rule["amps_path"], MISSING)
     volts = get_path(intake, rule["volts_path"], MISSING)
     observed = get_path(product, rule["product_path"], MISSING)
-    if amps is MISSING or volts is MISSING:
+    if amps is MISSING or amps is None or volts is MISSING or volts is None:
         return ConstraintResult(
             rule["id"],
             "unknown",
             rule.get("unknown_message", "Available circuit capacity has not been verified"),
             observed=None if observed is MISSING else observed,
         )
-    if observed is MISSING:
+    if observed is MISSING or observed is None:
         return ConstraintResult(
             rule["id"], "failed", "Product maximum power draw is missing"
         )

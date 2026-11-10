@@ -102,7 +102,7 @@ def _evidence_confidence(product: dict[str, Any]) -> dict[str, Any]:
     records = product.get("evidence", [])
     if not records:
         return {"range_min": 0.0, "range_max": 100.0, "score": 0.0, "explanation": "No evidence records supplied"}
-    score = sum(float(record.get("confidence", 0)) for record in records) / len(records) * 100
+    score = sum(float(record.get("confidence") or 0) for record in records) / len(records) * 100
     return {
         "range_min": 0.0, "range_max": 100.0,
         "score": round(score, 2),
