@@ -61,7 +61,8 @@ def evaluate_rule(
         return _missing_requirement(rule)
 
     observed = get_path(product, rule["product_path"], MISSING)
-    if observed is MISSING or observed is None:
+    # A blank string is an unfilled field, the same as null or absent.
+    if observed is MISSING or observed is None or (isinstance(observed, str) and not observed.strip()):
         if rule.get("on_missing_product") == "unknown":
             return ConstraintResult(
                 rule_id,

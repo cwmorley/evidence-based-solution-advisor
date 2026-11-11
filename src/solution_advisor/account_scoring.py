@@ -19,7 +19,7 @@ from .constraints import evaluate_constraints
 from .io import AdvisorDataError, get_path, load_json, validate_intake
 from .scoring import ScoringProfileError, normalize_dimension, validate_weights
 
-ACCOUNT_REQUIRED_FIELDS = ("account_id", "synthetic", "vertical", "name", "firmographics", "signals", "evidence")
+ACCOUNT_REQUIRED_FIELDS = ("account_id", "synthetic", "vertical", "status", "name", "firmographics", "signals", "evidence")
 SYNTHETIC_NOTICE = (
     "All included accounts, firmographics, signals, CRM identifiers, ICP rules, and weights are fictional "
     "demonstration data. Nothing has been written to a live CRM."
@@ -172,6 +172,8 @@ def _evaluate_criterion(account: dict[str, Any], criterion: dict[str, Any], weig
     name = criterion["id"]
     weight = float(weights[name])
     observed = get_path(account, criterion["path"])
+    if isinstance(observed, str) and not observed.strip():
+        observed = None  # a blank CRM field is unknown, the same as null or absent
     item: dict[str, Any] = {
         "criterion": name,
         "group": criterion["group"],
@@ -181,8 +183,8 @@ def _evaluate_criterion(account: dict[str, Any], criterion: dict[str, Any], weig
         "max_points": round(100.0 * weight, 4),
         "observed": observed,
     }
-    # A JSON null and an absent key are the same thing: unknown. Unknown is
-    # reported and earns no points; it is never treated as a known "no".
+    # A JSON null, an absent key, and a blank string are the same thing: unknown.
+    # Unknown is reported and earns no points; it is never treated as a known "no".
     if observed is None:
         item.update(status="missing", raw_score=None, normalized_score=None, contribution=0.0,
                     explanation=f"{criterion['label']} is unknown")
@@ -210,7 +212,8 @@ def _raw_score(criterion: dict[str, Any], observed: Any) -> tuple[float, str]:
     if kind == "tiers":
         if isinstance(observed, bool) or not isinstance(observed, (int, float)):
             raise ScoringProfileError(f"{criterion['id']}: expected a number, got {observed!r}")
-        raw = next((float(tier["score"]) for tier in criterion["tiers"] if observed >= tier["min"]), 0.0)
+        reached = [tier for tier in criterion["tiers"] if observed >= float(tier["min"])]
+        raw = float(max(reached, key=lambda tier: float(tier["min"]))["score"]) if reached else 0.0
         return raw, criterion["explain"].format(observed=observed)
     raise ScoringProfileError(f"{criterion['id']}: unsupported criterion kind {kind!r}")
 

@@ -54,13 +54,21 @@ def check_writeback(account: dict[str, Any], rules_version: Any, thresholds: lis
         return
     if account.get("status") != "scored":
         raise WritebackGuardError(f"{label}: unknown status {account.get('status')!r}")
+    failed = [item for item in account.get("constraint_results") or [] if item.get("status") == "failed"]
+    if account.get("disqualification_reasons") or failed:
+        raise WritebackGuardError(f"{label}: a scored account must not carry a failed disqualifier")
     score = account.get("score")
     if isinstance(score, bool) or not isinstance(score, (int, float)) or not math.isfinite(score):
         raise WritebackGuardError(f"{label}: score is missing or not a finite number")
+    if not 0 <= score <= 100:
+        raise WritebackGuardError(f"{label}: score {score} is outside 0..100")
     contributions = account.get("contributions") or []
     for item in contributions:
         if not 0 <= item["contribution"] <= item["max_points"]:
             raise WritebackGuardError(f"{label}: {item['criterion']} contribution is outside 0..{item['max_points']:g}")
+    maxima = round(sum(item["max_points"] for item in contributions), 2)
+    if contributions and maxima != 100:
+        raise WritebackGuardError(f"{label}: criterion maxima sum to {maxima}, not 100")
     total = round(sum(item["contribution"] for item in contributions), 2)
     if not contributions or total != score:
         raise WritebackGuardError(f"{label}: contributions sum to {total} but the score is {score}")
@@ -69,6 +77,14 @@ def check_writeback(account: dict[str, Any], rules_version: Any, thresholds: lis
         raise WritebackGuardError(
             f"{label}: grade {account.get('grade')!r} does not match the thresholds (score {score} is grade {expected})"
         )
+    confidence = (account.get("confidence") or {}).get("value")
+    if (
+        isinstance(confidence, bool)
+        or not isinstance(confidence, (int, float))
+        or not math.isfinite(confidence)
+        or not 0 <= confidence <= 1
+    ):
+        raise WritebackGuardError(f"{label}: confidence is missing or not a number in 0..1")
 
 
 def company_properties(account: dict[str, Any], rules_version: str, scored_at: str) -> dict[str, str]:
@@ -107,6 +123,11 @@ def build_batch_updates(result: dict[str, Any], scored_at: str | None = None) ->
     accounts = result["scored_accounts"] + result["disqualified_accounts"]
     for account in accounts:
         check_writeback(account, result.get("rules_version"), result["grade_thresholds"])
+    for key, label in (("hubspot_company_id", "HubSpot company ID"), ("account_id", "account ID")):
+        values = [account[key] for account in accounts]
+        duplicates = sorted({value for value in values if values.count(value) > 1})
+        if duplicates:
+            raise WritebackGuardError(f"{label} appears more than once in the batch: {', '.join(duplicates)}")
     inputs = [
         {"id": account["hubspot_company_id"], "properties": company_properties(account, result["rules_version"], timestamp)}
         for account in sorted(accounts, key=lambda item: item["account_id"])
